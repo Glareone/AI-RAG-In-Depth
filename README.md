@@ -199,6 +199,29 @@ Theoretical Part
 ### 4. [Parameter-Efficient Fine-tuning (PEFT)](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/Fine%20Tuning/Readme.md)
 <img width="709" height="922" alt="image" src="https://github.com/user-attachments/assets/c5e5c8f7-1721-4684-96e6-534652e3c8e9" />
 
+```txt
+SFT = What you're doing (the training objective/paradigm)
+  - Training on prompt-response pairs in a supervised manner
+  - The goal is to teach the model to follow instructions or perform specific tasks
+
+PeFT/LoRA = How you're doing it (the training technique/method)
+  - A more efficient way to update model weights
+  - Instead of updating all billions of parameters, you only update a small subset or add small adapter layers
+
+PeFT is orthogonal to the training objective.
+
+Training Objective (WHAT):        Implementation Method (HOW):
+├─ Pretraining                   ├─ Full fine-tuning (update all params)
+├─ Supervised Fine-Tuning (SFT)  └─ PeFT (LoRA, QLoRA, etc.)
+├─ RLHF/Preference Tuning             └─ Only update small adapters
+└─ Continued Pretraining
+
+PeFT/Lora/QLora could be used in:
+  * Stage 2 - Supervised Fine-Tuning. You can use PeFT/LoRA when doing supervised fine-tuning with prompt→hand-written answer pairs  
+  * Stage 3 - Reinforcement Learning. RLHF/preference tuning. You can use PeFT/LoRA during RLHF when training with human preferences  
+  * Stage 4 - Fine-tuning. Additional fine-tuning. This general fine-tuning step (creating the fine-tuned base LLM) could also use PeFT/LoRA  .
+  * Stage 1` - Even continued pretraining.
+```
 
 1. [LoRA (Low-Rank Adaptation)](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/Fine%20Tuning/LoRa.md)  
     a. [Rank Parameter (r) - 8-64 range, efficiency vs capacity trade-off](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#a-rank-parameter-r---8-64-range-efficiency-vs-capacity-trade-off)  
