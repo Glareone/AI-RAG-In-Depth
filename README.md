@@ -197,6 +197,9 @@ Theoretical Part
     d. Gradient Accumulation - Simulating larger batch sizes  
 
 ### 4. [Parameter-Efficient Fine-tuning (PEFT)](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/Fine%20Tuning/Readme.md)
+<img width="709" height="922" alt="image" src="https://github.com/user-attachments/assets/c5e5c8f7-1721-4684-96e6-534652e3c8e9" />
+
+
 1. [LoRA (Low-Rank Adaptation)](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/Fine%20Tuning/LoRa.md)  
     a. [Rank Parameter (r) - 8-64 range, efficiency vs capacity trade-off](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#a-rank-parameter-r---8-64-range-efficiency-vs-capacity-trade-off)  
     b. [Alpha Scaling Factor - Typically 16-32](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#b-alpha-scaling-factor---typically-16-32)  
@@ -238,38 +241,46 @@ Theoretical Part
     b. DVC (Data Version Control) - Data and model versioning  
     c. BentoML - Model serving framework architecture  
 
-### 7. Advanced LLM Frameworks. LangGraph. Semantic Kernel.  
-1. [LangGraph Basics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md)  
+### 7. Advanced LLM Frameworks. LangChain. LangGraph. Semantic Kernel.  
+![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/f9ed16f2-80ba-42c9-b6fc-50b488cee8d2)  
+![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/86d0f7e2-cf7f-4a2c-93a1-a97427498ed0)  
+1. [LangChain. Demo examples wiht pipelines](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/Langchain/first-experiment)  
+    a. LangChain using Golang (In Progress)  
+2. [LangGraph Basics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md)  
     a. [When to Use What (Decision Framework)](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md#0%EF%B8%8F%E2%83%A3-when-to-use-what-decision-framework)  
     b. [Core LangGraph Primitives: StateGraph & MessageGraph, Compilation model, Checkpointers, Thread/Run concepts](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md#0%EF%B8%8F%E2%83%A3-when-to-use-what-decision-framework)   
     c. [Graph Execution Model: how LangGraph executes iteratively. StateGraph & MessageGraph](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md#0%EF%B8%8F%E2%83%A3-when-to-use-what-decision-framework)  
     d. [LangGraph Checkpointers: MemorySaver, SqliteSaver, PostgresSaver](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md#0%EF%B8%8F%E2%83%A3-when-to-use-what-decision-framework)  
     e. [LangGraph composition: START, END, Conditional Edge. Parallel node execution. Cycle limit (recursion_limit), infinite loops](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Basics.md#2%EF%B8%8F%E2%83%A3-graph-execution-model-start--end-nodes-conditional-nodes)  
     e. Subgraphs & Composition: when to use subgraphs vs separate graphs  
-    f. Error Handling & Interrupts (Critical for production)  
-3. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
+    f. Error Handling & Interrupts (Critical for production)
+3. [LangGraph. Patterns. Examples](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph)  
+    a. [React. Using LangGraph. In Progress](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT-Lab2-LangGraph)  
+    b. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)
+    c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)  
+4. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
     a. State Management - Persistent conversation state  
     b. Graph Architecture - Nodes and edges for complex workflows  
     c. Conditional Routing - Dynamic flow based on LLM decisions  
     d. Human-in-the-Loop - Approval gates and manual interventions  
     e. Parallel Processing - Concurrent graph branch execution  
-4. [LangGraph Examples and Prototypes](https://github.com/Glareone/AI-LLM-RAG-best-practices/edit/main/README.md)  
-5. LangGraph System Prompt Techniques  
+5. [LangGraph Examples and Prototypes](https://github.com/Glareone/AI-LLM-RAG-best-practices/edit/main/README.md)  
+6. LangGraph System Prompt Techniques  
     a. [Decision-Tree Prompts & Pattern](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Decision-Tree.md)   
     b. [Multi-Agent Prompt & Pattern. Primitive Version](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Multi-Agent.md)   
     c. [Plan-Execute Prompt & Pattern](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Plan-Execute.md)  
     d. [ReAct. Prompts & Ideas](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-ReACT.md)  
     e. [Prompt-Reflection Pattern. Idea](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Reflection.md)  
-6. Semantic Kernel (Microsoft)  
+7. Semantic Kernel (Microsoft)  
     a. Kernel Architecture - Central orchestration engine  
     b. Plugin System - Reusable functions (native C# or prompt-based)  
     c. Planners - Automatic workflow generation  
     d. Memory Management - Vector-based semantic memory patterns
-7. Magentic One + Semantic Kernel
-8. Advanced Framework Concepts  
+8. Magentic One + Semantic Kernel
+9. Advanced Framework Concepts  
     a. Multi-Agent Systems - Collaborative AI agent coordination  
     b. Error Recovery Strategies - Retry logic, fallback mechanisms  
-    c. Async Execution - Resource management at scale  
+    c. Async Execution - Resource management at scale
 
 ### 8. Structured Output & Schema Design
 1. Pydantic Advanced Usage  
@@ -316,9 +327,6 @@ Theoretical Part
   c. [Phoenix. Tool and Span tracing](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L5_with_arize_phoenix.ipynb)  
 4. Examples. Arize Phoenix for LangGraph (In progress)  
 ---
-### Advanced Topics. Practice. Semantic Kernel
-![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/f9ed16f2-80ba-42c9-b6fc-50b488cee8d2)  
-![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/86d0f7e2-cf7f-4a2c-93a1-a97427498ed0)  
 
 ### Advanced Topics. Practice. Semantic Kernel Knowledge base
 1. [Semantic kernel and AI Assistant](https://devblogs.microsoft.com/semantic-kernel/assistants-a-first-look-into-using-openai-assistants-with-semantic-kernel/)
@@ -330,21 +338,10 @@ Theoretical Part
 3. [Model Switching. Hugging Face](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/blob/main/ChatGPT.AzureFunction/ChatGPT.AzureFunction/SemanticKernel.ConsoleApp/ModelSwitching_HuggingFaceModel.cs)
 4. [Semantic Function for Conversational Chat](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/blob/main/ChatGPT.AzureFunction/ChatGPT.AzureFunction/SemanticKernel.ConsoleApp/SemanticFunctionForConversationalChat.cs)
 5. [Semantic Kernel Pipeline](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/blob/main/ChatGPT.AzureFunction/ChatGPT.AzureFunction/SemanticKernel.ConsoleApp/SemanticKernelPipeline.cs)
+
 ---
-### Advanced Topics. Practice. LangGraph & LangChain
-![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/0d7221a7-fff5-4d3d-9eae-1473cf338f38)
-
-Table of Content:  
-1. LangChain using Golang (In Progress)
-2. [LangChain. Demo examples wiht pipelines](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/Langchain/first-experiment)
-3. [LangGraph. Patterns. Examples](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph)
-4. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)
-5. [React. Using LangGraph. In Progress](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT-Lab2-LangGraph)
-6. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)
-
------------
 ### RAG. Cheatsheet for .Net
------------
+---
 ![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/2b8ca392-dc0e-4ebc-9f85-5bcbb8bf27bb)
 
 
