@@ -60,7 +60,7 @@ Theoretical Part
 14. [Azure Language Service. Question-Answer Knowledge base for bots. Question Answering service.](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/blob/main/language-knowledge-base.md)
 15. [Regression. Logistic and Linear Regression. Multiclass regression](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/blob/main/regression-linear-and-logistic-regression.md)
 
-### Azure Learn Useful Materials
+### Azure AI-102 Learn Materials useful for exam
 1. [AI Search. Debug Search Issues](https://learn.microsoft.com/en-us/training/modules/maintain-azure-cognitive-search-solution/07-debug-search-issues-use-azure-portal)
 2. [AI Search. Performance and Monitoring](https://learn.microsoft.com/en-us/training/modules/maintain-azure-cognitive-search-solution/03-optimize-performance-of-azure-cognitive-search-solution)
 3. [AI Search. Search and Scoring](https://learn.microsoft.com/en-us/training/modules/create-azure-cognitive-search-solution/7-enhance-index)
@@ -331,7 +331,14 @@ PeFT/Lora/QLora could be used in:
     c. Training/Validation Loss Curves - Overfitting gap analysis  
     d. Cross-validation Strategies - 5-10 fold robust evaluation
 
-### [11. Homomorphic encryption (encryption on the fly) in LLMs](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
+### 11. GenAI Design Patterns
+1. Logits Masking
+2. Grammar
+3. Style Transfer
+4. Reverse Neutralization
+5. Content Optimization
+
+### [12. Homomorphic encryption (encryption on the fly) in LLMs](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
 1. [Main Topics. What, Why, How](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
 2. [Q&A. Quick references](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Q&A_Quick_References.md#qa-quick-references)    
     a. [Whether or not. Use Cases](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Q&A_Quick_References.md#qa-quick-references)  
