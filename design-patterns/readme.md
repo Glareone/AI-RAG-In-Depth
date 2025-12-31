@@ -78,7 +78,6 @@ But this only works with models where logits :
 ✅ HuggingFace Transformers
 ❌ NOT with API-based models (OpenAI, Anthropic, Cohere)
 
-
 ```
 
 | Requirement | Open-Source (Llama) | API Models (Claude/GPT-4) | 
@@ -88,7 +87,31 @@ But this only works with models where logits :
 | Custom sampling   | ✅ Yes | ❌ Standardized API |
 
 **Code**: https://github.com/lakshmanok/generative-ai-design-patterns/tree/main/examples/01_logits_masking  
-**Workaround for API Models**: stop words, post-generation validation with retry, [grammar rule](#2-grammar)
+
+**Workarounds (for API models or to replace Logits Masking)**: 
+  - 1. stop words.
+  - 2. post-generation validation with retry.
+  - 3. [grammar rule](#2-grammar). If the rules you want to apply can be represented in certain types of
+standard forms, you can offload Logits Masking to the model
+provider by providing it with the rules you want to impose.
+  - 4. few-shot examples in the context + [Style Transfer](3-style-transfer) and
+providing detailed instructions in the prompt through prompt
+engineering. Useful for poetry. However, these do not provide a strict enforcement
+mechanism—you can’t be sure that your generated text will
+conform to the rules.
+  - 5. Using a more powerful model might be an option because such
+models are typically better at following instructions.
+
+**Considerations**:
+```
+Logits Masking is a way of using much of the machinery of the LLM to
+generate text while imposing your preferences on the sampling. It’s useful
+when continuation sequences can easily be censored to remove disallowed
+options. The simple sequence selection approach works when censoring tends to
+leave behind a few valid options. In more complex scenarios, where it is
+highly likely that censoring will remove all of the generated options, you
+might need to backtrack and regenerate sequences.
+```
 
 ---
 ### 2. Grammar
