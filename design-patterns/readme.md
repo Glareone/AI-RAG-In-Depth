@@ -27,6 +27,17 @@ or 3.3, attempts on average
 ```
 
 **Solution**: The idea behind LogitsMasking is to intercept the generation at this sampling stage.  
+```
+Logits Masking (low-level):
+User Input → Tokenizer → Model → [INTERCEPT LOGITS] → Sample → Output
+                                        ↑
+                                  You modify here
+
+LangGraph (high-level):
+User Input → LangGraph Node → LLM API → Output
+                                ↑
+                          Black box - no logits access
+```
 
 
 ```txt
@@ -49,7 +60,25 @@ content that meets the rules.
 
 <img width="706" height="980" alt="image" src="https://github.com/user-attachments/assets/7eae53ff-d77b-498a-836e-f706f0166482" />
 
+**Limitations**:
+```
+But this only works with models where logits :
+
+✅ Local/self-hosted models (Llama, Mistral, etc.)
+✅ HuggingFace Transformers
+❌ NOT with API-based models (OpenAI, Anthropic, Cohere)
+
+
+```
+
+| Requirement | Open-Source (Llama) | API Models (Claude/GPT-4) | 
+| ----------- | ------------------- | ------------------------- |
+| Access to weights | ✅ Yes | ❌ No (proprietary) |
+| Logits exposure   | ✅ Yes (HF Transformers) | ❌ Hidden | 
+| Custom sampling   | ✅ Yes | ❌ Standardized API |
+
 **Code**: https://github.com/lakshmanok/generative-ai-design-patterns/tree/main/examples/01_logits_masking  
+**Workaround for API Models**: stop words, post-generation validation with retry, [grammar rule](#2-grammar)
 
 ---
 ### 2. Grammar
