@@ -2,6 +2,16 @@
 
 ---
 ### 1. Logits Masking
+```
+When to Use Logits Masking Pattern:
+✅ 1. Open-source models (Llama, Mistral, etc.)
+✅ 2. Self-hosted deployments
+✅ 3. HuggingFace Transformers
+✅ 4. Maximum control requirements
+❌ 5. API-based models (Claude, GPT-4)
+❌ 6. LangGraph with external APIs
+❌ 7. When simpler alternatives suffice
+```
 
 **Problem**: Generate which adheres the text set of rules. Regeneration isnt working all the time, but also increases the latency and costs.  
 
