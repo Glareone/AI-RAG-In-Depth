@@ -1,7 +1,7 @@
 ## GenAI Design Patterns
 
 ---
-1. Logits Masking
+### 1. Logits Masking
 
 **Problem**: Generate which adheres the text set of rules. Regeneration isnt working all the time, but also increases the latency and costs.  
 
@@ -52,13 +52,13 @@ content that meets the rules.
 **Code**: https://github.com/lakshmanok/generative-ai-design-patterns/tree/main/examples/01_logits_masking  
 
 ---
-2. Grammar
+### 2. Grammar
 
 ---
-3. Style Transfer
+### 3. Style Transfer
 
 ---
-4. Reverse Neutralization
+### 4. Reverse Neutralization
 
 ---
 5. Content Optimization
