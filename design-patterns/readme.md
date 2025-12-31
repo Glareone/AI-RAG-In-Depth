@@ -76,15 +76,19 @@ But this only works with models where logits :
 
 ✅ Local/self-hosted models (Llama, Mistral, etc.)
 ✅ HuggingFace Transformers
-❌ NOT with API-based models (OpenAI, Anthropic, Cohere)
-
+❌ NO WRITE with API-based models (OpenAI, Anthropic, Cohere)
+⚠️ OpenAI Supports `logit_bias` instead as an alternative to Logits masking
+⚠️ OpenAI & Gemini Flash provides logprobs read capabilities
 ```
 
-| Requirement | Open-Source (Llama) | API Models (Claude/GPT-4) | 
-| ----------- | ------------------- | ------------------------- |
-| Access to weights | ✅ Yes | ❌ No (proprietary) |
-| Logits exposure   | ✅ Yes (HF Transformers) | ❌ Hidden | 
-| Custom sampling   | ✅ Yes | ❌ Standardized API |
+| Requirement | Self-hosted (Llama-3-8B) | Self-hosted Mistral | Claude | GPT | Gemini Flash | Gemini Pro |
+| ----------- | ------------------- | ------------------------- | ---   | --- | ------------ | ---------- |
+| Access to weights | ✅ Yes | ✅ Yes | ❌ No (proprietary) | ❌ No | ❌ No | ❌ No |
+| Logprobs (read, Observe sampling)      | ✅ Yes | ✅ Yes | ❌ No logits/logprobs at all | ✅ Yes `logprobs=True` |  ✅ Yes `"response_logprobs": True`  | ❌ No |
+| Logits Masking (write, Modify sampling logic)    |  ✅ Yes, logits_processor=[MyRulesLogitsProcessor()]  |  ✅ Yes | ❌ No | ❌ No | ❌ No | ❌ No |
+| logit_bias (Ban/boost tokens)       | ✅ Yes (vLLM) but ❌ No (HFTransformers)   | ✅ Yes  | ❌ No | ✅ Yes | ❌ No | ❌ No |
+| Custom sampling (top-K, top-P)   | ✅ Yes | ✅ Yes | ✅ Yes `temperature, top_p, top_k` | ✅ Yes `temperature, top_p` | ✅ Yes `temperature, top_p, top_k` | ✅ Yes  `temperature, top_p, top_k` |
+| Frequency/presence penalties     | ✅ Yes `frequency, presence` (vLLM) but ❌ No for (HFTransformers) | ✅ Yes `frequency, presence` | ❌ No | ✅ Yes | ❌ No | ❌ No |
 
 **Code**: https://github.com/lakshmanok/generative-ai-design-patterns/tree/main/examples/01_logits_masking  
 
