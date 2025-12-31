@@ -331,12 +331,12 @@ PeFT/Lora/QLora could be used in:
     c. Training/Validation Loss Curves - Overfitting gap analysis  
     d. Cross-validation Strategies - 5-10 fold robust evaluation
 
-### 11. GenAI Design Patterns
-1. Logits Masking
-2. Grammar
-3. Style Transfer
-4. Reverse Neutralization
-5. Content Optimization
+### 11. GenAI Design Patterns  
+1. [Logits Masking (Text which adheres style and rules, without regeneration)](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/design-patterns#1-logits-masking-click-to-see-detailed-information)  
+2. [Grammar](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#2-grammar)  
+3. [Style Transfer](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)
+4. [Reverse Neutralization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)  
+5. [Content Optimization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)  
 
 ### [12. Homomorphic encryption (encryption on the fly) in LLMs](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
 1. [Main Topics. What, Why, How](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
