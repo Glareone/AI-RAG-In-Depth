@@ -74,7 +74,7 @@ refusal back to the user saying that you are unable to generate
 content that meets the rules.
 ```
 
-<img width="706" height="980" alt="image" src="https://github.com/user-attachments/assets/7eae53ff-d77b-498a-836e-f706f0166482" />
+<img width="1446" height="2766" alt="image" src="https://github.com/user-attachments/assets/63029d06-5e41-4beb-8127-deefb15c3de3" />
 
 **Limitations**:
 ```
