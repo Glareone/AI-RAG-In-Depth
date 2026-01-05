@@ -305,7 +305,7 @@ PeFT/Lora/QLora could be used in:
     b. Error Recovery Strategies - Retry logic, fallback mechanisms  
     c. Async Execution - Resource management at scale
 
-### 8. Structured Output & Schema Design
+### 8. Structured Output & Schema Design]  
 1. Pydantic Advanced Usage  
     a. Field Validation - Custom validators, constraints (min/max, regex)  
     b. JSON Schema Generation - Automatic API documentation  
@@ -314,7 +314,8 @@ PeFT/Lora/QLora could be used in:
 2. Best Practices  
     a. Schema Complexity vs Success Rates - Optimization strategies  
     b. Retry Logic Implementation - Parse failure handling  
-    c. Validation Feedback Loops - Error correction workflows  
+    c. Validation Feedback Loops - Error correction workflows
+3. [Structured Output & outlines](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/1_constrained_decoding_openai.ipynb)  
 
 ### 9. Massive Parallel Training (Enterprise Scale)  
 1. Distributed Training Strategies  
