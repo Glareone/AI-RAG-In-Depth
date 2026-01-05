@@ -16,7 +16,11 @@ When to Use Logits Masking Pattern:
 **Problem**: Generate which adheres the text set of rules. Regeneration isnt working all the time, but also increases the latency and costs.  
 **Solution**: The idea behind LogitsMasking is to intercept the generation at this sampling stage.   
 **Limitations**: This only works with models where logits is available and the latency is not critical.  
-**Code**: https://github.com/lakshmanok/generative-ai-design-patterns/tree/main/examples/01_logits_masking   
+
+**Code**:
+1) [Structured Output, outlines, NER for Named Entity Extraction (N-Graph)](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/1_constrained_decoding_openai.ipynb)  
+2) [True logits masking](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_true_logits_masking_llama.ipynb)    
+
 **Workarounds (for API models or to replace Logits Masking)**: 
   - 1. stop words.
   - 2. post-generation validation with retry.
