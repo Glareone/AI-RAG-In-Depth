@@ -1,4 +1,13 @@
 ### 1. Logits Masking
+
+Logits Masking is a brilliant idea of how to inforce LLM to adhere the rules.
+There are two different ways how to do this:
+1) Inject into the sampling transformer in hosted models (for instance, in Llama)
+2) Inject into outline and enforce rules on logits_bias leve.
+
+I compare them below:
+
+
 ```
 When to Use Logits Masking Pattern:
 ✅ 1. Open-source models (Llama, Mistral, etc.)
@@ -33,7 +42,7 @@ generations fail, only 30% succeed—so you will need 100/30,
 or 3.3, attempts on average
 ```
 
-**Solution**: The idea behind LogitsMasking is to intercept the generation at this sampling stage.  
+**Solution**: The idea behind LogitsMasking is to intercept the generation at this sampling stage (or as a work around for API models, on logits_bias level).    
 ```
 Logits Masking (low-level):
 User Input → Tokenizer → Model → [INTERCEPT LOGITS] → Sample → Output
@@ -73,10 +82,24 @@ But this only works with models where logits :
 
 ✅ Local/self-hosted models (Llama, Mistral, etc.)
 ✅ HuggingFace Transformers
+⚠️ OpenAI Supports `logit_bias` instead as an alternative to Logits masking (which is also a part of Logits Masking Pattern).
 ❌ NO WRITE with API-based models (OpenAI, Anthropic, Cohere)
 ⚠️ OpenAI Supports `logit_bias` instead as an alternative to Logits masking
 ⚠️ OpenAI & Gemini Flash provides logprobs read capabilities
 ```
+
+### Side-by-Side Comparison
+| Feature | True Logits Masking | Constrained Decoding (outlines + API) | 
+| ------- | ------------------- | ------------------------------------- |
+| Where it works | Self-hosted only | APIs with logit_bias | 
+| Access to logits | ✅ Full array | ❌ None (uses logit_bias) | 
+| Complex rules | ✅ Any logic | ❌ Only token bans | 
+| Context-aware | ✅ Can check previous tokens | ⚠️ Limited | 
+| Dynamic rules | ✅ Rules can change during generation | ❌ Static token list | 
+| Flexibility | ✅ Unlimited | ⚠️ Limited by API | 
+| Example use case | Legal document compliance | JSON schema enforcement |
+
+### Other capabilities available. Analysis
 
 | Requirement | Self-hosted (Llama-3-8B) | Self-hosted Mistral | Claude | GPT | Gemini Flash | Gemini Pro |
 | ----------- | ------------------- | ------------------------- | ---   | --- | ------------ | ---------- |
@@ -89,19 +112,20 @@ But this only works with models where logits :
 
 **Code**: https://github.com/lakshmanok/generative-ai-design-patterns/tree/main/examples/01_logits_masking  
 
-**Workarounds (for API models or to replace Logits Masking)**: 
-  - 1. stop words.
-  - 2. post-generation validation with retry.
+**Workarounds (for API models or to replace Logits Masking)**:   
+  - 1. logits_bias (for JSON generation)  
+  - 1. stop words  
+  - 2. post-generation validation with retry  
   - 3. [grammar rule](#2-grammar). If the rules you want to apply can be represented in certain types of
 standard forms, you can offload Logits Masking to the model
-provider by providing it with the rules you want to impose.
+provider by providing it with the rules you want to impose  
   - 4. few-shot examples in the context + [Style Transfer](3-style-transfer) and
 providing detailed instructions in the prompt through prompt
 engineering. Useful for poetry. However, these do not provide a strict enforcement
 mechanism—you can’t be sure that your generated text will
-conform to the rules.
+conform to the rules  
   - 5. Using a more powerful model might be an option because such
-models are typically better at following instructions.
+models are typically better at following instructions  
 
 **Considerations**:
 ```
