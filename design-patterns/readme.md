@@ -26,7 +26,7 @@ provider by providing it with the rules you want to impose.
   - 4. few-shot examples in the context + [Style Transfer](3-style-transfer) and
 providing detailed instructions in the prompt through prompt
 engineering. Useful for poetry. However, these do not provide a strict enforcement
-mechanism—you can’t be sure that your generated text will
+mechanism - you can’t be sure that your generated text will
 conform to the rules.
   - 5. Using a more powerful model might be an option because such
 models are typically better at following instructions.
@@ -44,6 +44,28 @@ might need to backtrack and regenerate sequences.
 
 ---
 ### 2. Grammar
+
+The Grammar pattern provides a way to ensure that generated text adheres style rules that can be represented as a context-free `metasyntax`.  
+
+<img width="775" height="683" alt="image" src="https://github.com/user-attachments/assets/e5485356-b283-42e7-8e52-229a60252681" />
+
+### Problem
+Generate the text which follows the specific format:   
+1) Simple as a comma-separated list  
+2) JSON  
+3) Complex syntactically valid structured query language (SQL)  
+4) Math expression  
+
+### Solution
+1. Either prepare the `grammar` and inject it into the `logits_processor`  
+2. Use predefined `grammar-constrained logits_processor`  
+3. Or use more user-friendly options, such as specifying a data format or passing in a schema description    
+
+#### How to
+1. Represent the syntax you want in the form of a formal grammar (In Progress)
+2. Create a LogitsProcessor with applied grammar. (In Progress)
+3. Pass in the logits processor to the pipeline. (In Progress)
+
 
 ---
 ### 3. Style Transfer
