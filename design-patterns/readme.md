@@ -47,18 +47,20 @@ might need to backtrack and regenerate sequences.
 ```
 
 ---
-### 2. Grammar
+### 2. [Grammar](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/grammar.md)
 
 The Grammar pattern provides a way to ensure that generated text adheres style rules that can be represented as a context-free `metasyntax`.  
 
-<img width="775" height="683" alt="image" src="https://github.com/user-attachments/assets/e5485356-b283-42e7-8e52-229a60252681" />
+
+<img width="450" height="800" alt="image" src="https://github.com/user-attachments/assets/4e49c734-c87c-41af-91a8-9caca4699b2e" />
 
 ### Problem
 Generate the text which follows the specific format:   
 1) Simple as a comma-separated list  
 2) JSON  
 3) Complex syntactically valid structured query language (SQL)  
-4) Math expression  
+4) Math expression
+5) Pipe-separated information for UNIONS or for tables in .Markdown
 
 ### Solution
 1. Either prepare the `grammar` and inject it into the `logits_processor`  
