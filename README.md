@@ -333,8 +333,12 @@ PeFT/Lora/QLora could be used in:
     d. Cross-validation Strategies - 5-10 fold robust evaluation
 
 ### 11. GenAI Design Patterns  
-1. [Logits Masking (Text which adheres style and rules, without regeneration)](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/design-patterns#1-logits-masking-click-to-see-detailed-information)  
+1. [Logits Masking (Text which adheres style and rules, without regeneration)](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/design-patterns#1-logits-masking-click-to-see-detailed-information)
+   * [Logits Masking details](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/logits_masking.md)  
+   * [Examples(true and workarounds)](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_true_logits_masking_llama.ipynb)  
 2. [Grammar](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#2-grammar)  
+   * [Grammar details](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/grammar.md)  
+   * [all 5 examples: outlines, llama_cpp_python, IncrementalGrammarConstraint](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_grammar_pattern_4_examples.ipynb)  
 3. [Style Transfer](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)
 4. [Reverse Neutralization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)  
 5. [Content Optimization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)  
