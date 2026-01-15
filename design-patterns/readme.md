@@ -73,6 +73,67 @@ Generate the text which follows the specific format:
 3. Pass in the logits processor to the pipeline. (In Progress)
 
 
+**Problem**: LLMs may generate output in unpredictable formats or include unwanted explanations, making it difficult to parse and process responses programmatically.
+
+**Solution**: Use grammar constraints to physically block invalid tokens at generation time, ensuring 100% format compliance.
+
+**Notebook**: [2_grammar_pattern_4_examples.ipynb](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_grammar_pattern_4_examples.ipynb)
+
+**Examples**:
+1. **Insurance Forms** - Complex nested JSON extraction using Pydantic schemas
+2. **SQL Query Generation** - Generate safe SQL with TRUE BNF Grammar Pattern
+3. **Pipe-Separated Data** - Extract structured data with strict format
+4. **English Grammar Correction** - Fix grammar while constraining output format
+5. **🎓 Math Expression Generation** - Deep dive into direct logits processing
+
+**Key Learning**: Grammar Pattern provides 100% guarantee of valid output format through token-level logits masking.
+
+#### Approaches Comparison
+
+| Feature | Grammar Pattern (outlines/llama-cpp/IncrementalGrammarConstraint) | Structured Outputs (Azure OpenAI) |
+|---------|---------------------------------------|-----------------------------------|
+| Implementation | Self-hosted model                     | Azure OpenAI API |
+| Constraint Type | Token-level grammar                   | Schema + parsing |
+| Safety Guarantee | ✅ HARD (impossible to violate)        | ⚠️ SOFT (99% reliable) |
+| Grammar Support | ✅ BNF, regex, FSM                     | ❌ Not supported |
+| Output Structure | ⚠️ Text (must match grammar)          | ✅ Pydantic objects |
+| Model Control | ✅ Full control                        | ❌ Server-side only |
+
+#### 🎓 Deep Dive: How Grammar Constraints Work Internally
+
+**Example 5** in the notebook demonstrates the **foundational mechanism** that libraries like `outlines` and `llama-cpp` use under the hood:
+
+**Direct Logits Processing**:
+1. Grammar is compiled into a finite state machine
+2. At each token generation step:
+   - Determine which tokens are valid per current grammar state
+   - Set logits of INVALID tokens to `-inf` (impossible to select)
+   - Model MUST choose from valid tokens
+3. Result: 100% guaranteed format compliance
+
+**Abstraction Levels**:
+- **High Level**: Pydantic schemas with OpenAI API (Examples 1, 3)
+- **Medium Level**: `outlines` library with regex/BNF (Examples 2, 4)
+- **Low Level**: Direct `GrammarConstrainedLogitsProcessor` (Example 5) ← **Shows how it actually works**
+
+**Libraries**:
+- **outlines**: HuggingFace models, auto-downloads, regex/JSON/FSM support
+- **llama-cpp**: GGUF models (quantized), manual download, full BNF grammar
+- **transformers-cfg**: Direct logits processing for educational purposes
+
+**When to Use**:
+```
+✅ Generate valid SQL queries (block DELETE/UPDATE/DROP)
+✅ Extract structured data with guaranteed format
+✅ Math expression generation (no explanations)
+✅ Fix grammar while constraining output structure
+✅ Any scenario requiring 100% format compliance
+❌ When simpler prompt engineering suffices
+❌ API-based models without grammar support
+```
+
+**Code Reference**: See [Example 5](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_grammar_pattern_4_examples.ipynb) for direct logits processing implementation.
+
 ---
 ### 3. Style Transfer
 
