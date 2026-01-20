@@ -223,12 +223,12 @@ PeFT/Lora/QLora could be used in:
   * Stage 1` - Even continued pretraining.
 ```
 
-1. [LoRA (Low-Rank Adaptation)](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/Fine%20Tuning/LoRa.md)  
+1. [LoRA (Low-Rank Adaptation)](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/Fine%20Tuning/Readme.md)  
     a. [Rank Parameter (r) - 8-64 range, efficiency vs capacity trade-off](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#a-rank-parameter-r---8-64-range-efficiency-vs-capacity-trade-off)  
     b. [Alpha Scaling Factor - Typically 16-32](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#b-alpha-scaling-factor---typically-16-32)  
     c. [Target Module Selection - Query, value, key, output projections](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#c-target-module-selection---query-value-key-output-projections)    
-    d. [AdaLoRA - Adaptive rank allocation](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#d-adalora---adaptive-rank-allocation)  
-    e. [QLoRA - 4-bit quantized LoRA for memory efficiency](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Fine%20Tuning/Readme.md#d-adalora---adaptive-rank-allocation)  
+    d. [AdaLoRA - Adaptive rank allocation](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/Fine%20Tuning/LoRa-AdaLoRa.md)  
+    e. [QLoRA - 4-bit quantized LoRA for memory efficiency](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/Fine%20Tuning/QLora.md)
 2. [Training Parameters](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/Fine%20Tuning/Training%20Parameters.md)  
     a. Learning Rate Ranges - 1e-5 to 5e-4 for LLMs with warmup  
     b. Batch Size Optimization - 8-32 full fine-tuning, 64-128 LoRA  
@@ -279,7 +279,7 @@ PeFT/Lora/QLora could be used in:
     f. Error Handling & Interrupts (Critical for production)
 3. [LangGraph. Patterns. Examples](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph)  
     a. [React. Using LangGraph. In Progress](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT-Lab2-LangGraph)  
-    b. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)
+    b. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)  
     c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)  
 4. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
     a. State Management - Persistent conversation state  
@@ -305,7 +305,7 @@ PeFT/Lora/QLora could be used in:
     b. Error Recovery Strategies - Retry logic, fallback mechanisms  
     c. Async Execution - Resource management at scale
 
-### 8. Structured Output & Schema Design]  
+### 8. Structured Output & Schema Design  
 1. Pydantic Advanced Usage  
     a. Field Validation - Custom validators, constraints (min/max, regex)  
     b. JSON Schema Generation - Automatic API documentation  
