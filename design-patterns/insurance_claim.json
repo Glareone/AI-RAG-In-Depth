@@ -1,0 +1,100 @@
+{
+  "claim_type": "auto",
+  "claimant": {
+    "full_name": "Sarah Johnson",
+    "policy_number": "POL-847392-AZ",
+    "phone": "(555) 123-4567",
+    "email": "sarah.johnson@email.com"
+  },
+  "incident": {
+    "incident_location": {
+      "street": "1234 Main Street",
+      "city": "Phoenix",
+      "state": "Arizona",
+      "zip_code": "85001"
+    },
+    "severity": "moderate",
+    "weather_conditions": "Rainy conditions, reduced visibility",
+    "description": "I was driving northbound on Main Street at approximately 3:30 PM when another vehicle ran a red light and struck my vehicle on the passenger side. The impact caused significant damage to both vehicles. The other driver admitted fault at the scene.",
+    "police_report_filed": true,
+    "police_report_number": "PX-2025-9847",
+    "incident_date": "2025-12-28",
+    "vehicles_involved": [
+      {
+        "license_plate": "ABC-1234",
+        "vin": "1HGBH41JXMN109186",
+        "make": "Toyota",
+        "model": "Camry",
+        "year": 2023
+      },
+      {
+        "license_plate": "XYZ-9876",
+        "vin": null,
+        "make": "Honda",
+        "model": "Civic",
+        "year": 2021
+      }
+    ],
+    "damages": [
+      {
+        "component": "Front passenger door",
+        "description": "Major dent and paint damage",
+        "estimated_cost": 2500.0
+      },
+      {
+        "component": "Rear passenger door",
+        "description": "Moderate dent",
+        "estimated_cost": 1800.0
+      },
+      {
+        "component": "Passenger side mirror",
+        "description": "Broken, needs replacement",
+        "estimated_cost": 450.0
+      },
+      {
+        "component": "Front passenger window",
+        "description": "Shattered",
+        "estimated_cost": 350.0
+      },
+      {
+        "component": "Front bumper",
+        "description": "Completely destroyed",
+        "estimated_cost": 1200.0
+      },
+      {
+        "component": "Hood",
+        "description": "Crumpled",
+        "estimated_cost": 2000.0
+      },
+      {
+        "component": "Headlight assembly",
+        "description": "Both broken",
+        "estimated_cost": 800.0
+      }
+    ],
+    "injuries": [
+      {
+        "person_name": "Sarah Johnson",
+        "injury_type": "minor",
+        "description": "Minor whiplash and bruising",
+        "medical_facility": "Phoenix General Hospital"
+      },
+      {
+        "person_name": "Emma Johnson",
+        "injury_type": "minor",
+        "description": "Minor cuts from broken glass",
+        "medical_facility": "Phoenix General Hospital"
+      }
+    ],
+    "other_driver_info": {
+      "full_name": "Michael Chen",
+      "policy_number": "POL-293847-CA",
+      "phone": "(555) 987-6543",
+      "email": null
+    }
+  },
+  "claim_id": "CLM-2026-00472",
+  "filing_date": "2026-01-05",
+  "total_estimated_cost": 9100.0,
+  "priority": "high"
+}
