@@ -164,15 +164,16 @@ Theoretical Part
 
 ### 2. RAG Evaluation Frameworks and Libraties. Agentic Application Evaluation
 1. [RAG System assessment and quality control:](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/RAG%20System%20assessment%20and%20quality%20control.md)  
-    a. LangWatch  
-    b. LangFuse    
+    a. [Arize Phoenix](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/Arize-Phoenix/README.md)  
+    b. LangWatch  
+    c. LangFuse    
     b. Galileo   
     c. Ragas  
     d. DeepEval  
     e. TrueLens  
-    f. HuggingFace (NEW, in progress)    
+    f. HuggingFace    
     g. AI Foundry
-2. [Agentic Application Evaluation](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/AI_agents/Agentic_Evaluations.md)  
+3. [Agentic Application Evaluation](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/AI_agents/Agentic_Evaluations.md)  
     a. General Agentic Application Evaluations  
     b. Monitoring  
     c. Trajectory Evaluation  
