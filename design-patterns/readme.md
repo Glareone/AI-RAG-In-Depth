@@ -135,10 +135,150 @@ Generate the text which follows the specific format:
 **Code Reference**: See [Example 5](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_grammar_pattern_4_examples.ipynb) for direct logits processing implementation.
 
 ---
-### 3. Style Transfer
+### 3. [Style Transfer. Click to See detailed information](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/style-transfer.md)
+
+**Problem**: Convert content from one style to another when you have paired examples (before → after).
+
+**Solution**: Use in-context learning (few-shot) or fine-tuning on paired examples (A → B).
+
+**Key Advantage**: Style Transfer works with **in-context learning and few-shot strategy** - no fine-tuning required if you have good examples.
+
+**When to Use**:
+```
+✅ 1. Have paired examples (A → B)
+✅ 2. Want to use few-shot ICL (3-5 examples)
+✅ 3. API models (GPT-4, Claude)
+✅ 4. Quick prototypes without training
+✅ 5. Optional fine-tuning for consistency
+```
+
+**Approaches**:
+1. **Few-Shot ICL** (Recommended Start)
+   - Provide 3-5 examples in prompt
+   - No training required
+   - Works with any API model
+   - Fast iteration (minutes)
+
+2. **Fine-Tuning** (For Consistency)
+   - Use 100+ paired examples
+   - API: SFT via OpenAI/Azure (~$8-12 per 1M tokens)
+   - Open-source: LoRA/QLoRA (~$5-20 GPU rental)
+   - Better quality, slower iteration
+
+**Comparison with Reverse Neutralization**:
+
+| Aspect | Style Transfer | Reverse Neutralization |
+|--------|---------------|----------------------|
+| Training data | ✅ Ready (paired A→B) | ❌ Must create (neutralize + reverse) |
+| Inference steps | 1 (direct A→B) | 2 (generate + convert) |
+| ICL/Few-shot | ✅ **Works great** | ❌ Not possible |
+| Fine-tuning | Optional (quality boost) | Required (only option) |
+| Cost | Lower (1 call) | Higher (2 calls) |
+
+**Code Example** (Few-Shot):
+```python
+from openai import OpenAI
+
+client = OpenAI()
+
+prompt = """Convert casual notes to professional emails.
+
+Examples:
+Casual: "hey john, can we push the meeting?"
+Professional: "Dear John, Would it be possible to reschedule our meeting?"
+
+Casual: "thx for sending that doc!"
+Professional: "Thank you for providing the document."
+
+Now convert: "meeting went well, lets followup next week"
+Professional:"""
+
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": prompt}]
+)
+```
+
+**Decision Tree**:
+```
+Do you have paired examples (before → after)?
+├─ YES → Style Transfer
+│   ├─ Have 3-10 examples → Few-shot ICL (recommended start)
+│   ├─ Have 100+ examples → Consider fine-tuning (for consistency)
+│   └─ Using API model → Few-shot ICL (easiest)
+└─ NO → Use Reverse Neutralization (Pattern 4)
+```
+
+**Key Takeaway**: Style Transfer's superpower is **in-context learning** - get great results with just 3-5 examples and no training.
 
 ---
-### 4. Reverse Neutralization
+### 4. [Reverse Neutralization. Click to See detailed information](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/reverse-neutralization.md)
+
+**Problem**: Generate NEW content in a specific style when you only have examples in that style (no paired training data).
+
+**Solution**: Use intermediate neutral form → Fine-tune model to convert neutral to styled → Generate content in two steps.
+
+**Key Constraint**: Reverse Neutralization **REQUIRES fine-tuning** (SFT, DPO, or RLHF) - there is no way to use in-context learning because you need to create the neutral→styled model first.
+
+**When to Use**:
+```
+✅ 1. Only have styled examples (B only, no paired A→B)
+✅ 2. Need to generate NEW content in that style
+✅ 3. Have resources for fine-tuning
+✅ 4. Want to create content on arbitrary topics in your style
+❌ 5. Have paired examples → Use Style Transfer instead
+❌ 6. Can't fine-tune → Use Style Transfer with few-shot
+```
+
+**Process**:
+1. **Training** (3 steps):
+   - Neutralize: LLM converts styled examples → neutral form
+   - Reverse: Flip pairs (neutral becomes input, styled becomes output)
+   - Fine-tune: Train model on reversed pairs
+
+2. **Inference** (2 steps):
+   - Generate neutral: Use foundational model (any topic)
+   - Convert to style: Use fine-tuned model
+
+**Implementation Methods**:
+
+| Your Setup | Recommended Method | Cost |
+|------------|-------------------|------|
+| **Azure OpenAI** | SFT via AI Foundry | $8-12 per 1M tokens |
+| **OpenAI API** | SFT via API | $8 per 1M tokens |
+| **Llama (consumer GPU)** | **LoRA/QLoRA** | $5-20 |
+| **Llama (cloud/multi-GPU)** | Full SFT or LoRA | $50-200 |
+
+**Key Takeaway**:
+- 🔵 **API models** → Use provider's SFT (only option)
+- 🟢 **Open-source models** → Use **LoRA** for efficiency (recommended)
+
+**Comparison with Style Transfer**:
+
+| Aspect | Style Transfer | Reverse Neutralization |
+|--------|---------------|----------------------|
+| Training data | ✅ Ready (paired) | ❌ Must create (neutralize + reverse) |
+| Inference steps | 1 (direct) | 2 (generate + convert) |
+| ICL/Few-shot | ✅ Works great | ❌ Not possible |
+| Fine-tuning | Optional | **Required** |
+| Use case | Known source | Arbitrary new topics |
+| Cost | Lower (1 call) | Higher (2 calls) |
+
+**Example Scenario**:
+- ❌ **Style Transfer won't work**: "Generate Lufthansa complaint in MY style" (new topic, only have your old emails about different topics)
+- ✅ **Reverse Neutralization works**: Neutralize your old emails → Fine-tune model → Generate neutral complaint → Convert to your style
+
+**Decision Tree**:
+```
+Do you have paired examples (before → after styling)?
+├─ YES → Use Style Transfer
+│   ├─ Few examples (3-5) → In-context learning (few-shot)
+│   └─ Many examples (100+) → Fine-tuning
+└─ NO → Use Reverse Neutralization
+    └─ Fine-tuning required (SFT/DPO/RLHF or LoRA)
+```
+
+**Remember**: Reverse Neutralization = Style Transfer + Data Creation Step (neutralization)
 
 ---
 ### 5. Content Optimization
