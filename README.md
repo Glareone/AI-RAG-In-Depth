@@ -333,7 +333,7 @@ PeFT/Lora/QLora could be used in:
     c. Training/Validation Loss Curves - Overfitting gap analysis  
     d. Cross-validation Strategies - 5-10 fold robust evaluation
 
-### 11. GenAI Design Patterns  
+### 11. [GenAI Design Patterns](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md)    
 1. [Logits Masking (Text which adheres style and rules, without regeneration)](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/design-patterns#1-logits-masking-click-to-see-detailed-information)
    * [Logits Masking details](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/logits_masking.md)  
    * [Examples(true and workarounds)](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_true_logits_masking_llama.ipynb)  
@@ -342,7 +342,8 @@ PeFT/Lora/QLora could be used in:
    * [all 5 examples: outlines, llama_cpp_python, IncrementalGrammarConstraint](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/2_grammar_pattern_4_examples.ipynb)  
 3. [Style Transfer](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)
 4. [Reverse Neutralization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)  
-5. [Content Optimization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)  
+5. [Content Optimization](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/readme.md#3-style-transfer)
+6. [Indexing. RAPTOR. Hierarchical Indexing](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/design-patterns/indexing_raptor_hierarchical_indexing.md)  
 
 ### [12. Homomorphic encryption (encryption on the fly) in LLMs](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
 1. [Main Topics. What, Why, How](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Encryption_Main.md)
