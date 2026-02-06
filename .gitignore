@@ -23,7 +23,7 @@ packages/
 .git/
 .idea/
 
-# PyCharm
+# PyCharm & gitignore
 **/.env
 
 ChatGPT/.idea/

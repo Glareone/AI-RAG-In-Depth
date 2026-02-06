@@ -1,0 +1,35 @@
+[project]
+name = "langgraph-document-analysis"
+version = "0.1.0"
+description = "A modular document analysis application built with LangGraph and Azure OpenAI reasoning models"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv>=1.0.1",
+    "langgraph>=0.0.27",
+    "langchain>=0.1.12",
+    "langchain-openai>=0.0.8",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
+[tool.uv]
+dev-dependencies = []
+package = false
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
