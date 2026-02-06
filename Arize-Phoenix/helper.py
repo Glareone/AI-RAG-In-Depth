@@ -33,21 +33,6 @@ def get_azure_openai_configurations() -> AzureOpenAIConfig:
         model=model
     )
 
-def get_azure_openai_evaluation_configurations() -> AzureOpenAIConfig:
-    """Get Azure OpenAI configuration from environment variables for evaluation model"""
-    api_key = os.getenv("AZURE_OPENAI_EVALUATION_API_KEY")
-    api_version = os.getenv("AZURE_OPENAI_EVALUATION_API_VERSION")
-    deployment = os.getenv("AZURE_OPENAI_EVALUATION_DEPLOYMENT")
-    endpoint = os.getenv("AZURE_OPENAI_EVALUATION_ENDPOINT")
-    model = os.getenv("AZURE_OPENAI_EVALUATION_MODEL")
-
-    return AzureOpenAIConfig(
-        api_key=api_key,
-        api_version=api_version,
-        deployment=deployment,
-        azure_endpoint=endpoint,
-        model=model
-    )
 
 def get_phoenix_endpoint() -> str:
     arize_phoenix_endpoint = os.getenv("ARIZE_PHOENIX_ENDPOINT")
