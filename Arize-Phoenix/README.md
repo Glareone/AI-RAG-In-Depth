@@ -5,19 +5,17 @@ This repository contains experiments and learnings from exploring **Arize Phoeni
 ## Table of Contents
 
 - [Overview](#overview)
-- [What is Arize Phoenix?](#what-is-arize-phoenix)  
-- [What to evaluate](#what-and-how-to-evaluate)  
-- [Trajectory Analysis. Why it matters and how to monitor](#why-trajectory-matters)  
-- [Repository Structure](#repository-structure)  
-- [Setup Instructions](#setup-instructions)  
-- [Key Concepts](#key-concepts)  
-  - [Understanding @tracer.tool() vs @tracer.chain()](#understanding-tracertool-vs-tracerchain)  
-  - [Agent Architecture](#agent-architecture)  
-  - [Tracing Hierarchy](#tracing-hierarchy)  
-- [Notebooks](#notebooks)  
-- [Key Learnings](#key-learnings)  
-- [Running the Experiments](#running-the-experiments)  
-- [Additional Resources](#additional-resources)  
+- [What is Arize Phoenix?](#what-is-arize-phoenix)
+- [Repository Structure](#repository-structure)
+- [Setup Instructions](#setup-instructions)
+- [Key Concepts](#key-concepts)
+  - [Understanding @tracer.tool() vs @tracer.chain()](#understanding-tracertool-vs-tracerchain)
+  - [Agent Architecture](#agent-architecture)
+  - [Tracing Hierarchy](#tracing-hierarchy)
+- [Notebooks](#notebooks)
+- [Key Learnings](#key-learnings)
+- [Running the Experiments](#running-the-experiments)
+- [Additional Resources](#additional-resources)
 
 ## Overview
 
@@ -44,100 +42,17 @@ Phoenix provides hierarchical trace visualization, making it easy to understand:
 - How long each operation took
 - Input/output at every step
 
-## What and how to evaluate
-![img](pic/choosing_what_to_evaluate.png)
-
-**Evaluation Matrix:** 
-![img](pic/evaluation_matrix.png)
-
-### Evaluating the Router:
-**Evaluating the Router:**
-![img](pic/evaluating_router.png)
-
-**How to evaluate the router:**
-![img](pic/how_to_evaluate_the_router.png)
-
-### Evaluaing the skills/functions/tools
-![img.png](pic/evaluating_skills.png)
-![img.png](pic/evaluating_skills_2.png)
-
-### Evaluating Agent Trajectories
-
-#### Why Trajectory Matters
-
-Even when your agent produces the correct output, the path it takes to get there matters significantly. Efficient trajectories mean:
-- **Lower costs** - Fewer LLM calls and tool executions
-- **Faster responses** - Less processing time for users
-- **Better user experience** - Quick, efficient answers
-- **Reduced token consumption** - Lower API costs
-
-![Does trajectory matter?](pic/does_trajectory_matters.png)
-
-The image above shows two paths that produce the same correct answer:
-- **Inefficient path (left)**: 11 steps with redundant router calls and repeated tool usage
-- **Efficient path (right)**: 6 steps with optimal routing directly to the answer
-
-#### Trajectory Complexity in Real Systems
-
-![Trajectory complexity](pic/trajectory_analysis_using_arize_phoenix.png)
-
-As your AI systems grow, trajectories become increasingly complex:
-- **Single agent systems**: One router coordinating multiple tools
-- **Multi-agent systems**: Multiple agents that can call each other, creating branching paths
-- **Tool chains**: Tools calling other tools, creating nested execution paths
-
-**Arize Phoenix** helps visualize these complex trajectories, making it possible to:
-- Identify bottlenecks and inefficiencies
-- Compare different execution paths
-- Optimize routing decisions
-- Debug unexpected agent behavior
-
-#### Convergence: Measuring Path Optimality
-
-![Convergence metric](pic/trajectory_analysis_convergence.png)
-
-**Convergence** is a metric that measures how closely your agent follows the optimal path for a given query.
-
-**How it works:**
-1. Run the same query (or semantically equivalent queries) multiple times
-2. Track the number of steps (router calls, tool executions) for each run
-3. Identify the optimal (shortest) path length
-4. Calculate convergence score: `optimal_path_length / actual_path_length`
-
-**Convergence score interpretation:**
-- **1.0** = Perfect convergence (agent took the optimal path)
-- **0.5** = Agent took twice as many steps as optimal
-- **0.33** = Agent took three times as many steps as optimal
-
-**Why this matters:**
-- Identifies routing inefficiencies
-- Highlights when the agent "gets lost" in tool loops
-- Helps optimize prompts and tool descriptions
-- Provides a quantitative metric for agent efficiency improvements
-
-**Example in Lab 9 (L9.ipynb):**
-The notebook demonstrates convergence evaluation by:
-1. Creating 17 semantically equivalent questions asking for the same answer
-2. Running each through the agent to track path lengths
-3. Computing the optimal path length (shortest successful path)
-4. Calculating convergence scores for each execution
-5. Visualizing results in Phoenix Experiments UI
-
 ## Repository Structure
 
 ```
 .
-├── README.md                              # This file
-├── .env                                   # Environment variables (not tracked)
-├── L3_modified.ipynb                      # Lab 1: Basic agent without tracing
-├── L5_with_arize_phoenix.ipynb            # Lab 2: Agent with Phoenix tracing
-├── L7_add_evaluations_to_phoenix.ipynb    # Lab 3: Phoenix evaluations with comprehensive explanation
-├── L9.ipynb                               # Lab 4: Trajectory analysis and convergence evaluation
-├── helper.py                              # Azure OpenAI configuration helper
-├── utils.py                               # Shared utilities and configurations
-├── generate_data.py                       # Script to generate sample sales data
-├── pyproject.toml                         # Project dependencies
-├── pic/                                   # Images used in README and notebooks
+├── README.md                           # This file
+├── .env                                # Environment variables (not tracked)
+├── L3_modified.ipynb                   # Lab 1: Basic agent without tracing
+├── L5_with_arize_phoenix.ipynb        # Lab 2: Agent with Phoenix tracing
+├── helper.py                           # Azure OpenAI configuration helper
+├── generate_data.py                    # Script to generate sample sales data
+├── pyproject.toml                      # Project dependencies
 └── data/
     └── Store_Sales_Price_Elasticity_Promotions_Data.parquet
 ```
@@ -171,25 +86,14 @@ The notebook demonstrates convergence evaluation by:
    ```
 
 4. Create a `.env` file with your Azure OpenAI credentials:
-```env
-AZURE_OPENAI_API_KEY=<your_api_key>
-AZURE_OPENAI_ENDPOINT=<your_azure_open_ai_resource>
-AZURE_OPENAI_MODEL=gpt-4.1-mini
-AZURE_OPENAI_DEPLOYMENT=gpt-4.1-mini
-AZURE_OPENAI_API_VERSION=2024-12-01-preview
-
-ARIZE_PHOENIX_ENDPOINT=http://127.0.0.1:6006/
-
-AZURE_OPENAI_EVALUATION_API_KEY=<your_api_key>
-AZURE_OPENAI_EVALUATION_DEPLOYMENT=gpt-4o
-AZURE_OPENAI_EVALUATION_MODEL=gpt-4o
-AZURE_OPENAI_EVALUATION_API_VERSION=2024-12-01-preview
-AZURE_OPENAI_EVALUATION_ENDPOINT=<your_azure_open_ai_resource>
-```
-
-   **Note**: You can use different models for evaluation than for your agent. For example:
-   - Agent model: `gpt-4o-mini` (faster, cheaper for agent operations)
-   - Evaluation model: `gpt-4o` (more capable for evaluation judgments)
+   ```env
+   AZURE_OPENAI_API_KEY=your_api_key
+   AZURE_OPENAI_API_VERSION=2024-08-01-preview
+   AZURE_OPENAI_DEPLOYMENT=your_deployment_name
+   AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+   AZURE_OPENAI_MODEL=gpt-4o
+   ARIZE_PHOENIX_ENDPOINT=http://127.0.0.1:6006/
+   ```
 
 5. Generate sample data (if not already present):
    ```bash
@@ -524,277 +428,6 @@ The distinction between span kinds follows this pattern:
 
 This instrumentation pattern makes complex multi-step agent behavior easy to understand and debug in Phoenix!
 
-## Phoenix Evaluation Workflow (Lab 7)
-
-Lab 7 introduces systematic evaluation of agent components using Phoenix. The workflow follows these steps:
-
-### 1. Run Agent with Test Questions
-
-First, execute your agent with a set of test questions to generate traces:
-
-```python
-agent_questions = [
-    "What was the most popular product SKU?",
-    "What was the total revenue across all stores?",
-    # ... more questions
-]
-
-for question in agent_questions:
-    ret = start_main_span([{"role": "user", "content": question}])
-```
-
-### 2. Query Spans from Phoenix
-
-Use the `SpanQuery` DSL to filter and extract specific spans for evaluation:
-
-```python
-from phoenix.trace.dsl import SpanQuery
-from phoenix.client import Client  # Phoenix 12.x
-
-phoenix_client = Client()
-
-# Example: Query all LLM spans for tool calling evaluation
-query = SpanQuery().where(
-    "span_kind == 'LLM'",  # Filter for LLM spans
-).select(
-    question="input.value",    # Export these fields
-    tool_call="llm.tools"      # from each span
-)
-
-tool_calls_df = phoenix_client.spans.get_spans_dataframe(
-    query=query,
-    project_name=PROJECT_NAME,
-    timeout=None
-)
-```
-
-**Key aspects of span querying:**
-
-- **Filtering**: Use Python boolean expressions in `.where()` to filter spans
-  - `"span_kind == 'LLM'"` - Filter by span type
-  - `"name == 'generate_visualization'"` - Filter by function name
-  - `"span_kind=='AGENT'"` - Filter for agent-level spans
-
-- **Field selection**: Use `.select()` to specify which span attributes to export
-  - `input.value` - The input to the span
-  - `output.value` - The output from the span
-  - `llm.tools` - Tools definition from LLM calls
-  - `llm.output_messages` - LLM response messages
-
-- **Important**: You may need additional filtering after the query if `span_kind` isn't specific enough:
-  ```python
-  # After querying all LLM spans, filter for SQL generation specifically
-  sql_df = sql_df[sql_df["question"].str.contains(
-      "Generate a DuckDB SQL query based on a prompt",
-      na=False
-  )]
-  ```
-
-  **Why this matters**: `span_kind == 'LLM'` returns ALL LLM calls, including router calls, SQL generation, analysis, etc. The additional filter narrows it down to just SQL generation spans by matching the prompt text.
-
-### 3. Run Evaluations Using llm_classify
-
-Phoenix provides `llm_classify` for LLM-as-a-Judge evaluations:
-
-```python
-from phoenix.evals import llm_classify, OpenAIModel
-from openinference.instrumentation import suppress_tracing
-
-# Configure your evaluation model (Azure OpenAI example)
-eval_model = OpenAIModel(
-    model=eval_config.model,
-    api_key=eval_config.api_key,
-    azure_endpoint=eval_config.azure_endpoint,
-    azure_deployment=eval_config.deployment,
-    api_version=eval_config.api_version
-)
-
-# Run evaluation WITHOUT tracing the evaluation calls themselves
-with suppress_tracing():
-    evaluations = llm_classify(
-        dataframe=tool_calls_df,
-        template=YOUR_EVALUATION_PROMPT,
-        rails=['correct', 'incorrect'],  # Possible output labels
-        model=eval_model,
-        provide_explanation=True  # Get reasoning for each evaluation
-    )
-
-# Add numeric scores based on labels
-evaluations['score'] = evaluations.apply(
-    lambda x: 1 if x['label']=='correct' else 0,
-    axis=1
-)
-```
-
-**Key parameters explained:**
-
-- **dataframe**: The spans data queried from Phoenix in step 2
-- **template**: Your evaluation prompt with placeholders like `{question}`, `{tool_call}`, etc.
-- **rails**: The possible output labels the LLM can choose from
-  - Must be a list of strings: `['correct', 'incorrect']`, `['clear', 'unclear']`, etc.
-  - The LLM must respond with exactly one of these labels
-- **model**: The LLM to use for evaluation (can be different from your agent's model)
-- **provide_explanation**: Set to `True` to get reasoning for each evaluation
-
-**Why use suppress_tracing?**
-
-The `suppress_tracing()` context manager prevents Phoenix from tracing the evaluation LLM calls themselves. This is important because:
-
-1. **Cleaner traces**: You don't want evaluation calls mixed with your agent's execution traces
-2. **Performance**: Tracing adds overhead; evaluations don't need to be traced
-3. **Separation of concerns**: Agent execution traces vs. evaluation traces should be separate
-
-### 4. Upload Evaluation Results to Phoenix
-
-Send the evaluation results back to Phoenix for visualization:
-
-```python
-from phoenix.trace import SpanEvaluations
-
-# Create evaluation object
-span_evals = SpanEvaluations(
-    eval_name="Tool Calling Eval",  # Name shown in Phoenix UI
-    dataframe=evaluations
-)
-
-# Upload to Phoenix (Phoenix 12.x API)
-phoenix_client.spans.log_span_annotations_dataframe(
-    dataframe=span_evals.dataframe,
-    annotation_name=span_evals.eval_name,
-    annotator_kind="LLM"  # "LLM" for LLM-as-a-Judge, "CODE" for code-based
-)
-```
-
-After uploading, you'll see:
-- **Evaluation metrics** displayed in Phoenix UI
-- **Feedback panel** becomes available for each evaluated span
-- **Score aggregations** showing overall performance
-
-### 5. Code-Based Evaluations (Alternative to LLM-as-a-Judge)
-
-For some evaluations, you can use deterministic code instead of LLMs:
-
-```python
-def code_is_runnable(output: str) -> bool:
-    """Check if generated code is runnable"""
-    output = output.strip().replace("```python", "").replace("```", "")
-    try:
-        exec(output)
-        return True
-    except Exception as err:
-        print("error: %s", err)
-        return False
-
-# Apply evaluation function to each span
-code_gen_df["label"] = code_gen_df["generated_code"].apply(code_is_runnable).map({
-    True: "runnable",
-    False: "not_runnable"
-})
-code_gen_df["score"] = code_gen_df["label"].map({
-    "runnable": 1,
-    "not_runnable": 0
-})
-
-# Upload with annotator_kind="CODE"
-span_evals = SpanEvaluations(eval_name="Runnable Code Eval", dataframe=code_gen_df)
-phoenix_client.spans.log_span_annotations_dataframe(
-    dataframe=span_evals.dataframe,
-    annotation_name=span_evals.eval_name,
-    annotator_kind="CODE"  # Indicates code-based evaluation
-)
-```
-
-### Complete Evaluation Examples
-
-#### Example 1: Router Evaluation (Tool Calling Correctness)
-
-```python
-# Step 1: Query router LLM calls
-query = SpanQuery().where("span_kind == 'LLM'").select(
-    question="input.value",
-    tool_call="llm.tools"
-)
-tool_calls_df = phoenix_client.spans.get_spans_dataframe(query, project_name=PROJECT_NAME)
-
-# Step 2: Evaluate using Phoenix's built-in template
-from phoenix.evals import TOOL_CALLING_PROMPT_TEMPLATE
-
-with suppress_tracing():
-    eval_df = llm_classify(
-        dataframe=tool_calls_df,
-        template=TOOL_CALLING_PROMPT_TEMPLATE,
-        rails=['correct', 'incorrect'],
-        model=eval_model,
-        provide_explanation=True
-    )
-
-# Step 3: Upload results
-span_evals = SpanEvaluations(eval_name="Tool Calling Eval", dataframe=eval_df)
-phoenix_client.spans.log_span_annotations_dataframe(...)
-```
-
-#### Example 2: Response Clarity Evaluation (Custom Prompt)
-
-```python
-# Custom evaluation prompt (not built into Phoenix)
-CLARITY_PROMPT = """
-Evaluate the clarity of the answer in addressing the query.
-
-[BEGIN DATA]
-Query: {query}
-Answer: {response}
-[END DATA]
-
-Your response should be a single word: either "clear" or "unclear".
-"""
-
-# Step 1: Query agent-level spans
-query = SpanQuery().where("span_kind=='AGENT'").select(
-    response="output.value",
-    query="input.value"
-)
-clarity_df = phoenix_client.spans.get_spans_dataframe(query, project_name=PROJECT_NAME)
-
-# Step 2: Evaluate
-with suppress_tracing():
-    eval_df = llm_classify(
-        dataframe=clarity_df,
-        template=CLARITY_PROMPT,
-        rails=['clear', 'unclear'],
-        model=eval_model,
-        provide_explanation=True
-    )
-
-# Step 3: Upload
-span_evals = SpanEvaluations(eval_name="Response Clarity", dataframe=eval_df)
-phoenix_client.spans.log_span_annotations_dataframe(...)
-```
-
-### Phoenix 12.x API Changes
-
-If you're migrating from Phoenix 7.x to 12.x, note these API changes:
-
-| Operation | Old API (7.x) | New API (12.x) |
-|-----------|---------------|----------------|
-| Import Client | `import phoenix as px`<br/>`px.Client()` | `from phoenix.client import Client`<br/>`Client()` |
-| Query spans | `client.query_spans(...)` | `client.spans.get_spans_dataframe(...)` |
-| Log evaluations | `client.log_evaluations(...)` | `client.spans.log_span_annotations_dataframe(...)` |
-| Launch app | `px.launch_app()` | `from phoenix.session.session import launch_app`<br/>`launch_app()` |
-
-**Client reuse pattern (recommended):**
-
-```python
-# Create client once at the top of your notebook
-phoenix_client = Client()
-
-# Reuse it for all queries and logging
-df1 = phoenix_client.spans.get_spans_dataframe(query1, project_name=PROJECT_NAME)
-df2 = phoenix_client.spans.get_spans_dataframe(query2, project_name=PROJECT_NAME)
-phoenix_client.spans.log_span_annotations_dataframe(...)
-```
-
-This avoids creating multiple client instances and follows the singleton pattern.
-
 ## Notebooks
 
 ### L3_modified.ipynb - Lab 1: Building Your Agent
@@ -822,21 +455,6 @@ This notebook adds Phoenix observability to the agent:
 - Launches Phoenix UI for trace visualization
 
 **Key learning**: How to instrument an agent for full observability and debug agent behavior using traces.
-
-### L7_add_evaluations_to_phoenix.ipynb - Lab 3: Evaluating Your Agent
-
-This notebook demonstrates how to evaluate agent performance using Phoenix:
-
-- **Router Evaluation**: LLM-as-a-Judge to evaluate tool selection correctness
-- **Tool 1 (SQL) Evaluation**: LLM-as-a-Judge to verify SQL query correctness
-- **Tool 2 (Analysis) Evaluation**: Custom LLM-as-a-Judge for response clarity
-- **Tool 3 (Visualization) Evaluation**: Code-based evaluator for runnable code
-- Querying spans from Phoenix using `SpanQuery` DSL
-- Using `llm_classify` for LLM-based evaluations
-- Logging evaluation results back to Phoenix UI
-- Phoenix 12.x API migration (Client, spans API)
-
-**Key learning**: How to systematically evaluate different components of your agent and visualize evaluation results in Phoenix UI.
 
 ## Key Learnings
 
@@ -990,139 +608,6 @@ When you view the trace in Phoenix UI, you can:
 4. Track which LLM call generated the faulty SQL
 
 This makes it easy to identify prompt engineering improvements needed!
-
-### Common Issue: Empty DataFrames in Evaluation Queries
-
-**Problem**: Your span queries return empty dataframes (0 rows), causing evaluation to fail with errors like:
-
-```python
-ValueError: not enough values to unpack (expected 5, got 0)
-```
-
-#### Cause 1: Project Name Mismatch
-
-**Root Cause**: The `PROJECT_NAME` used in span queries doesn't match the project name used when creating agent traces.
-
-**Example of the issue**:
-```python
-# In utils.py
-PROJECT_NAME = "tracing-agent-lab-7-and-higher"
-
-# In notebook (WRONG)
-PROJECT_NAME = "evaluating-agent"  # Different project name!
-
-# Query returns empty because it's looking in wrong project
-df = phoenix_client.spans.get_spans_dataframe(query, project_name=PROJECT_NAME)
-```
-
-**Solution**: Import `PROJECT_NAME` from utils.py in your evaluation notebook:
-
-```python
-# In evaluation notebook
-from utils import PROJECT_NAME  # Import the same project name
-
-# Now queries will find spans in the correct project
-df = phoenix_client.spans.get_spans_dataframe(query, project_name=PROJECT_NAME)
-```
-
-**How to verify**: Check the agent execution output for the project name being used:
-```
-Phoenix Project: tracing-agent-lab-7-and-higher
-```
-
-#### Cause 2: Prompt Text Mismatch in Filters
-
-**Root Cause**: The string filter used to narrow down spans doesn't match the actual prompt text in your code.
-
-**Example of the issue**:
-```python
-# Your SQL_GENERATION_PROMPT in utils.py starts with:
-"""Generate a DuckDB SQL query based on a prompt..."""
-
-# But your filter looks for (WRONG):
-sql_df = sql_df[sql_df["question"].str.contains(
-    "Generate an SQL query based on a prompt.",  # Missing "DuckDB"!
-    na=False
-)]
-
-# Result: sql_df is empty because no matches found
-```
-
-**Solution**: Match the exact prompt text from your code:
-
-```python
-# Correct filter that matches the actual prompt
-sql_df = sql_df[sql_df["question"].str.contains(
-    "Generate a DuckDB SQL query based on a prompt",  # Exact match
-    na=False
-)]
-```
-
-**Best practices**:
-1. **Copy the exact text** from your prompt definition in `utils.py`
-2. **Don't include the period** at the end when using `str.contains()`
-3. **Use partial matches** - you don't need the entire prompt, just enough to be unique
-4. **Test your filter**: Print the dataframe shape before and after filtering to verify it's working
-
-**Debugging steps**:
-
-```python
-# Step 1: Check how many spans you got before filtering
-print(f"Before filter: {sql_df.shape}")
-print(f"Columns: {sql_df.columns.tolist()}")
-
-# Step 2: See what the actual question text looks like
-print("\nSample question values:")
-print(sql_df["question"].head(2))
-
-# Step 3: Apply your filter
-sql_df = sql_df[sql_df["question"].str.contains("Generate a DuckDB SQL query", na=False)]
-
-# Step 4: Check the result
-print(f"\nAfter filter: {sql_df.shape}")
-if sql_df.empty:
-    print("WARNING: Filter removed all rows! Check your filter string.")
-```
-
-#### Cause 3: Timing Issues
-
-**Root Cause**: Queries run before spans are fully propagated to Phoenix.
-
-**Solution**:
-- Wait a few seconds after agent execution before querying
-- Or simply re-run the query cell if it returns empty initially
-
-### Common Issue: uvicorn Version Incompatibility (Python 3.12)
-
-**Problem**: Phoenix fails to start with error:
-
-```python
-TypeError: _patch_asyncio.<locals>.run() got an unexpected keyword argument 'loop_factory'
-```
-
-**Root Cause**: uvicorn 0.38.0+ is incompatible with Python 3.12. uvicorn is a transitive dependency of arize-phoenix (not directly in your pyproject.toml).
-
-**Solution**: Pin uvicorn to a compatible version:
-
-```bash
-uv add "uvicorn==0.30.6"
-```
-
-This updates pyproject.toml with the pinned version constraint.
-
-### Common Issue: Phoenix 12.x API Migration
-
-**Problem**: Getting errors like `AttributeError: module 'phoenix' has no attribute 'Client'`
-
-**Root Cause**: Phoenix 12.x introduced breaking API changes.
-
-**Solution**: Update your code to use the new API:
-
-| Issue | Old Code (7.x) | New Code (12.x) |
-|-------|----------------|-----------------|
-| Import | `import phoenix as px`<br/>`client = px.Client()` | `from phoenix.client import Client`<br/>`client = Client()` |
-| Query | `client.query_spans(...)` | `client.spans.get_spans_dataframe(...)` |
-| Log evals | `client.log_evaluations(...)` | `client.spans.log_span_annotations_dataframe(...)` |
 
 ## Additional Resources
 
