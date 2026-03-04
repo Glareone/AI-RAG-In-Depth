@@ -17,6 +17,9 @@ This repository contains experiments and learnings from exploring **Arize Phoeni
 - [Running the Experiments](#running-the-experiments)
 - [Additional Resources](#additional-resources)
 
+## Additional Examples
+- [LangGraph + Arize Phoenix + Structured Output](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)  
+
 ## Overview
 
 This project implements a **sales data analysis agent** that can:
