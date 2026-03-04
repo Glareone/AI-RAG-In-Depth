@@ -287,21 +287,22 @@ PeFT/Lora/QLora could be used in:
     b. Graph Architecture - Nodes and edges for complex workflows  
     c. Conditional Routing - Dynamic flow based on LLM decisions  
     d. Human-in-the-Loop - Approval gates and manual interventions  
-    e. Parallel Processing - Concurrent graph branch execution  
-5. [LangGraph Examples and Prototypes](https://github.com/Glareone/AI-LLM-RAG-best-practices/edit/main/README.md)  
-6. LangGraph System Prompt Techniques  
+    e. Parallel Processing - Concurrent graph branch execution
+6. [LangGraph Examples and Prototypes](https://github.com/Glareone/AI-LLM-RAG-best-practices/edit/main/README.md)  
+    a. [LangGraph, Structured Output, Arize Phoenix](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)  
+7. LangGraph System Prompt Techniques  
     a. [Decision-Tree Prompts & Pattern](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Decision-Tree.md)   
     b. [Multi-Agent Prompt & Pattern. Primitive Version](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Multi-Agent.md)   
     c. [Plan-Execute Prompt & Pattern](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Plan-Execute.md)  
     d. [ReAct. Prompts & Ideas](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-ReACT.md)  
     e. [Prompt-Reflection Pattern. Idea](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Reflection.md)  
-7. Semantic Kernel (Microsoft)  
+9. Semantic Kernel (Microsoft)  
     a. Kernel Architecture - Central orchestration engine  
     b. Plugin System - Reusable functions (native C# or prompt-based)  
     c. Planners - Automatic workflow generation  
     d. Memory Management - Vector-based semantic memory patterns
-8. Magentic One + Semantic Kernel
-9. Advanced Framework Concepts  
+10. Magentic One + Semantic Kernel
+11. Advanced Framework Concepts  
     a. Multi-Agent Systems - Collaborative AI agent coordination  
     b. Error Recovery Strategies - Retry logic, fallback mechanisms  
     c. Async Execution - Resource management at scale
