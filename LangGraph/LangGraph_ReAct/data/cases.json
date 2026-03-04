@@ -1,0 +1,50 @@
+[
+  {
+    "case_id": "CASE-2024-001",
+    "created_date": "2024-01-17",
+    "status": "under_review",
+    "priority": "high",
+    "customer_id": "CUST-101",
+    "transaction_ids": ["TXN-001", "TXN-002", "TXN-003"],
+    "ml_model_id": "aml-classifier-v2",
+    "ml_confidence_score": 0.94,
+    "ml_alert_type": "structuring",
+    "ml_detected_patterns": ["structuring_below_10k", "offshore_transfers", "same_day_multiple_transactions"],
+    "total_flagged_amount": 28500.00,
+    "timeframe_days": 2,
+    "assigned_analyst": null,
+    "description": "ML model detected multiple transactions just below $10,000 reporting threshold sent to same offshore account within 48 hours. Pattern consistent with structuring to avoid CTR filing."
+  },
+  {
+    "case_id": "CASE-2024-002",
+    "created_date": "2024-02-05",
+    "status": "under_review",
+    "priority": "critical",
+    "customer_id": "CUST-202",
+    "transaction_ids": ["TXN-004", "TXN-005"],
+    "ml_model_id": "aml-classifier-v2",
+    "ml_confidence_score": 0.98,
+    "ml_alert_type": "layering",
+    "ml_detected_patterns": ["round_trip_transaction", "high_risk_jurisdiction", "pep_involvement", "layering"],
+    "total_flagged_amount": 298000.00,
+    "timeframe_days": 2,
+    "assigned_analyst": null,
+    "description": "PEP-related customer received large wire from Panama entity, funds returned to US within 2 days with minor variation. Classic layering pattern detected. High-risk jurisdictions involved."
+  },
+  {
+    "case_id": "CASE-2024-003",
+    "created_date": "2024-01-23",
+    "status": "under_review",
+    "priority": "medium",
+    "customer_id": "CUST-303",
+    "transaction_ids": ["TXN-006", "TXN-007", "TXN-008"],
+    "ml_model_id": "aml-classifier-v2",
+    "ml_confidence_score": 0.79,
+    "ml_alert_type": "smurfing",
+    "ml_detected_patterns": ["cash_aggregation", "rapid_movement_to_foreign", "income_inconsistency"],
+    "total_flagged_amount": 10150.00,
+    "timeframe_days": 3,
+    "assigned_analyst": null,
+    "description": "Multiple small cash deposits followed by rapid wire to Mexico. Activity inconsistent with customer's stated income as restaurant worker. Possible smurfing or third-party deposit scheme."
+  }
+]
