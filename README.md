@@ -286,7 +286,8 @@ PeFT/Lora/QLora could be used in:
     c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)  
 4. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
     a. State Management - Persistent conversation state  
-    b. Graph Architecture - Nodes and edges for complex workflows  
+    b. Graph Architecture - Nodes and edges for complex workflows
+    c. [Conditional Routing. Basics](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/src/agent/graph.py)  
     c. Conditional Routing - Dynamic flow based on LLM decisions  
     d. Human-in-the-Loop - Approval gates and manual interventions  
     e. Parallel Processing - Concurrent graph branch execution
