@@ -236,7 +236,7 @@ PeFT/Lora/QLora could be used in:
     c. Sequence Length Limits - 512-4096 tokens task dependency  
     d. Weight Decay (L2 Regularization) - λ||w||² with λ = 1e-4 to 1e-2  
 
-### 5. Advanced Retrieval & Re-ranking
+### 5. Advanced Rerankers
 1. [Re-ranking Algorithms](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Advanced%20Retrieval%20&%20Re-ranking.md)   
     a. Reciprocal Rank Fusion (RRF) - RRF_score = Σ(1/(k + rank_i))  
     b. Cross-encoder vs Bi-encoder - Accuracy vs speed trade-offs  
@@ -247,7 +247,9 @@ PeFT/Lora/QLora could be used in:
 2. [Advanced Retrieval Concepts](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Advanced%20Retrieval%20&%20Re-ranking.md)  
     a. Semantic Similarity Scoring - Cosine similarity between embeddings  
     b. Context Preservation - Chunk coherence maintenance  
-    c. Window Size Optimization - Re-ranking candidate selection (100-1000)  
+    c. Window Size Optimization - Re-ranking candidate selection (100-1000)
+    d. Chunk Document Context (In progress)
+    e. Flat Document Chunks vs Hierarchical context (In progress)
 
 ### 6. MLOps & Production Platforms
 1. Evaluation Platforms  
