@@ -24,13 +24,23 @@ LangGraph_ReAct/
 │   ├── customers.json          # Sample customer profiles
 │   └── cases.json              # ML-flagged suspicious cases
 ├── results/                    # JSON output per run (gitignored)
+├── ab_testing/
+│   ├── PLAN.md                 # A/B testing design and workflow
+│   ├── README.md               # Quick-start: run order and Phoenix navigation
+│   ├── evaluators.py           # Shared Phoenix evaluator functions (token F1, G-eval, label match)
+│   ├── compare_runs.py         # Fetch spans → upload dataset → run experiment
+│   ├── evaluate_run.py         # Re-evaluate any existing dataset on demand
+│   └── ground_truth/
+│       └── CASE-2024-001.json  # Reference facts, risk level, recommendation
 └── src/
     ├── config/
     │   └── settings.py         # Pydantic BaseSettings (Bedrock, Phoenix, app config)
+    ├── infrastructure/
+    │   └── bedrock.py          # boto3 session factory (single responsibility)
     ├── agent/
-    │   ├── state.py            # AgentState (TypedDict with messages + report)
-    │   ├── graph.py            # StateGraph: react_llm, formatter_llm, tool_node
-    │   ├── output.py           # AMLReport Pydantic model (structured output schema)
+    │   ├── state.py            # AgentState (Pydantic BaseModel)
+    │   ├── graph.py            # AMLAgentGraph class + build_graph factory
+    │   ├── output.py           # AMLReport + RiskAssessment Pydantic models
     │   └── prompts.yaml        # System prompts with XML tags (analyst + formatter)
     ├── tools/
     │   ├── calculator.py       # Risk score, transaction velocity
@@ -96,39 +106,43 @@ LangGraph_ReAct/
 
 ---
 
+## Done
+
+### ✅ Step 11a: A/B run comparison (`ab_testing/compare_runs.py`)
+- Fetches the most recent root `"LangGraph"` span for a case from Phoenix using
+  `SpanQuery().where("name == 'LangGraph'").select(...)` with `root_spans_only=True`
+- Re-runs the agent with the updated `prompts.yaml` prompt
+- Fetches the new (candidate) span filtered by `after_timestamp`
+- Uploads a 2-row (baseline / candidate) Phoenix Dataset
+- Immediately runs a Phoenix Experiment on that dataset via `run_experiment`
+- Dependency added: `arize-phoenix-client==1.29.0`, `pandas>=2.0.0`
+
+### ✅ Step 11b: Shared evaluators (`ab_testing/evaluators.py`)
+- All evaluators follow the Phoenix convention: plain Python functions with
+  parameters named `output`, `input` — matched by Phoenix automatically
+- **`token_metrics(output, input)`** — bag-of-words precision / recall / F1
+  (deterministic, no LLM call)
+- **`make_geval_recall(settings)`** — factory returning a closure; Bedrock Claude
+  judges what fraction of reference facts are semantically covered
+- **`make_geval_precision(settings)`** — factory returning a closure; Claude judges
+  what fraction of generated facts are grounded (hallucination detection)
+- **`label_match(output, input)`** — exact-match on `risk_level` and `recommendation`
+- Ground truth loaded from `ab_testing/ground_truth/<case_id>.json` via `input["case_id"]`
+- `passthrough_task` and `build_evaluators(settings)` exported for reuse
+
+### ✅ Step 11c: Standalone evaluation (`ab_testing/evaluate_run.py`)
+- Auto-selects the most recent `aml-ab-<case_id>-*` dataset from Phoenix
+- Runs `run_experiment` on it using the shared evaluators from `evaluators.py`
+- All experiment results (scores + explanations per row) visible in
+  Phoenix → Experiments board, side-by-side for baseline and candidate
+
+### ✅ Step 11d: Ground truth (`ab_testing/ground_truth/CASE-2024-001.json`)
+- 7 canonical reference facts for `CASE-2024-001` derived from the data files
+- `expected_risk_level: CRITICAL`, `expected_recommendation: FILE_SAR`
+
+---
+
 ## Pending
-
-### 🔲 Step 11: A/B Prompt Evaluation with Arize Phoenix
-Goal: measure the impact of prompt changes on agent output quality using Phoenix
-Experiments and Datasets boards.
-
-**Sub-steps:**
-
-1. **Build a ground-truth dataset**
-   - Manually label expected outputs for all 3 sample cases:
-     `expected_recommendation`, `expected_risk_level`, `expected_facts` (key facts that must appear)
-   - Upload as a Phoenix Dataset via the Phoenix SDK (`px.Client().upload_dataset(...)`)
-   - Dataset becomes the stable evaluation baseline across all experiments
-
-2. **Fetch span results from a previous run (baseline)**
-   - Query Phoenix for spans from the target project using the Phoenix Client or REST API
-   - Extract per-case: `recommendation`, `risk_level`, `facts` from the formatter node output
-   - Record as the baseline experiment in Phoenix (`px.Client().log_evaluations(...)`)
-
-3. **Trigger a new run with the updated prompt (variant)**
-   - Modify `prompts.yaml` (e.g. updated `<considerations>`, reordered steps, new XML tags)
-   - Re-run the agent against all dataset cases
-   - Log results as a new experiment in Phoenix linked to the same dataset
-
-4. **Compare using precision and recall**
-   - **Precision** — of the facts the agent reported, how many are in the ground truth?
-   - **Recall** — of the ground-truth facts, how many did the agent find?
-   - **Recommendation accuracy** — exact match of `recommendation` and `risk_level` vs ground truth
-   - Log scores per case and aggregate; view side-by-side in the Phoenix Experiments board
-
-5. **Phoenix boards to set up**
-   - `Datasets` board: AML ground-truth dataset with input/expected output per case
-   - `Experiments` board: one entry per prompt variant with evaluation scores attached
 
 ---
 

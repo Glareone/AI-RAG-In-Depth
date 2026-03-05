@@ -1,0 +1,15 @@
+{
+  "case_id": "CASE-2024-001",
+  "expected_risk_level": "CRITICAL",
+  "expected_recommendation": "FILE_SAR",
+  "expected_facts": [
+    "Three wire transfers were structured below the $10,000 CTR reporting threshold: TXN-001 ($9,800), TXN-002 ($9,500), TXN-003 ($9,200).",
+    "All three transfers were directed to the same offshore counterparty — Offshore Holdings Ltd — at Swiss account CH56-0483-5012-3456-7800-9.",
+    "The transfers were executed within a 48-hour window on 2024-01-15 and 2024-01-16, with two transactions occurring on the same calendar day.",
+    "The combined total of $28,500 exceeds customer CUST-101's declared expected monthly transaction volume of $20,000.",
+    "Customer CUST-101 (John Smith) is classified as high-risk with limited source-of-funds documentation.",
+    "The AML ML model (aml-classifier-v2) flagged the case with 94% confidence, identifying structuring_below_10k, offshore_transfers, and same_day_multiple_transactions.",
+    "Customer CUST-101 has no PEP status and no sanctions matches at the time of review."
+  ],
+  "notes": "Ground truth derived from data/transactions.json, data/customers.json, and data/cases.json. Facts are canonical — concise descriptions of each key finding that any correct analysis must capture."
+}

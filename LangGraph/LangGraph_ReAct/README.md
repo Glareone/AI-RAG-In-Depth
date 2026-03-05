@@ -36,8 +36,8 @@ Expected output:
 ```json
 {
     "UserId": "...",
-    "Account": "119796001828",
-    "Arn": "arn:aws:iam::119796001828:user/aleksei-dev-macbook"
+    "Account": "0000000000",
+    "Arn": "arn:aws:iam::xxxxxxx:user/xxxxxxxxx"
 }
 ```
 
@@ -62,7 +62,7 @@ cp .env.example .env
 ```env
 AWS_PROFILE=aleksei-dev-macbook
 AWS_REGION=eu-central-1
-BEDROCK_MODEL_ID=arn:aws:bedrock:eu-central-1:119796001828:inference-profile/eu.anthropic.claude-sonnet-4-6
+BEDROCK_MODEL_ID=arn:aws:bedrock:eu-central-1:xxxxxxxx:inference-profile/eu.anthropic.claude-sonnet-4-6
 
 PHOENIX_ENDPOINT=http://localhost:6006/
 PHOENIX_PROJECT_NAME=aml-react-agent
@@ -74,9 +74,8 @@ DATA_DIR=data/
 ---
 
 ## 3. Start Arize Phoenix (optional, for tracing)
-
+we do have docker-compose file in this repository
 ```bash
-cd ../Arize-Phoenix
 docker compose up -d
 ```
 

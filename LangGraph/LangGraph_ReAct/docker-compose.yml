@@ -1,0 +1,99 @@
+name: arize-phoenix-monitoring
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Arize Phoenix 12.3 — observability / tracing UI
+  # ---------------------------------------------------------------------------
+  phoenix:
+    image: arizephx/phoenix:12.3.0
+    container_name: arize-phoenix
+    environment:
+      # Phoenix reads this variable to switch from the default SQLite backend
+      # to PostgreSQL.  The service name below must match the DB service name.
+      PHOENIX_SQL_DATABASE_URL: "postgresql://postgres:postgres@azire-phoenix-database-server:5432/phoenix-ai-monitoring?ssl=require"
+    ports:
+      - "6006:6006"   # Phoenix web UI
+      - "4317:4317"   # OTLP gRPC ingest
+      - "4318:4318"   # OTLP HTTP ingest
+    depends_on:
+      azire-phoenix-database-server:
+        condition: service_healthy
+    networks:
+      - phoenix-network
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # PostgreSQL — storage backend for Phoenix
+  # The custom entrypoint generates a self-signed TLS certificate with OpenSSL
+  # before handing control back to the standard postgres entrypoint.
+  # ---------------------------------------------------------------------------
+  azire-phoenix-database-server:
+    image: postgres:16
+    container_name: azire-phoenix-database-server
+
+    # Override the default entrypoint so we can generate SSL certs first.
+    # The script:
+    #   1. Creates /var/lib/postgresql/certs
+    #   2. Generates a self-signed X.509 cert + private key via OpenSSL
+    #   3. Locks down key file permissions (postgres requires 0600)
+    #   4. Delegates to the standard docker-entrypoint.sh, passing the SSL
+    #      flags as postgres server arguments
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+          set -e
+
+          CERT_DIR=/var/lib/postgresql/certs
+          mkdir -p "$CERT_DIR"
+
+          echo ">> Generating self-signed TLS certificate …"
+          openssl req -new -x509 -days 365 -nodes \
+            -out  "$CERT_DIR/server.crt" \
+            -keyout "$CERT_DIR/server.key" \
+            -subj "/CN=azire-phoenix-database-server"
+
+          # Postgres refuses to start if the key is group- or world-readable
+          chown -R postgres:postgres "$CERT_DIR"
+          chmod 600 "$CERT_DIR/server.key"
+          chmod 644 "$CERT_DIR/server.crt"
+
+          echo ">> Starting PostgreSQL with TLS enabled …"
+          exec docker-entrypoint.sh postgres \
+            -c ssl=on \
+            -c ssl_cert_file="$CERT_DIR/server.crt" \
+            -c ssl_key_file="$CERT_DIR/server.key"
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: phoenix-ai-monitoring
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      # pg_isready returns 0 only once the server is ready to accept connections
+      test: ["CMD-SHELL", "pg_isready -U postgres -d phoenix-ai-monitoring"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+    networks:
+      - phoenix-network
+    restart: unless-stopped
+
+# ---------------------------------------------------------------------------
+# Shared network — lets services resolve each other by container / service name
+# ---------------------------------------------------------------------------
+networks:
+  phoenix-network:
+    driver: bridge
+
+# ---------------------------------------------------------------------------
+# Named volume — persists Postgres data across container restarts
+# ---------------------------------------------------------------------------
+volumes:
+  postgres_data:
