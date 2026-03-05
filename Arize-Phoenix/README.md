@@ -18,7 +18,8 @@ This repository contains experiments and learnings from exploring **Arize Phoeni
 - [Additional Resources](#additional-resources)
 
 ## Additional Examples
-- [LangGraph + Arize Phoenix + Structured Output](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)  
+- [LangGraph + Arize Phoenix + Structured Output](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)
+- [LangGraph + AB Testing in Arize Phoenix](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/ab_testing/README.md)  
 
 ## Overview
 
