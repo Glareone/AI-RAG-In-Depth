@@ -247,9 +247,9 @@ PeFT/Lora/QLora could be used in:
 2. [Advanced Retrieval Concepts](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Advanced%20Retrieval%20&%20Re-ranking.md)  
     a. Semantic Similarity Scoring - Cosine similarity between embeddings  
     b. Context Preservation - Chunk coherence maintenance  
-    c. Window Size Optimization - Re-ranking candidate selection (100-1000)
-    d. Chunk Document Context (In progress)
-    e. Flat Document Chunks vs Hierarchical context (In progress)
+    c. Window Size Optimization - Re-ranking candidate selection (100-1000)  
+    d. Chunk Document Context (In progress)  
+    e. Flat Document Chunks vs Hierarchical context (In progress)  
 
 ### 6. MLOps & Production Platforms
 1. Evaluation Platforms  
