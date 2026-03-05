@@ -10,3 +10,5 @@ e. Score Normalization Techniques - Min-max, z-score, sigmoid
 a. Semantic Similarity Scoring - Cosine similarity between embeddings  
 b. Context Preservation - Chunk coherence maintenance  
 c. Window Size Optimization - Re-ranking candidate selection (100-1000)  
+d. Chunk Document Context (In progress)  
+e. Flat Document Chunks vs Hierarchical context (In progress)  
