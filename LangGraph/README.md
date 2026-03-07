@@ -11,10 +11,13 @@ List of Content
 3. [ReACT Implementation Recommendations are here](https://til.simonwillison.net/llms/python-react-pattern)
 4. [Prompts Hub. LangGraph Hub](https://smith.langchain.com/hub)
 
-Practical Examples:  
-1. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)
-2. [React. Using LangGraph. In Progress](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT-Lab2-LangGraph)
-3. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)
+## Practical Examples
+1. [LangGraph. ReAct. Tools. AML Anti-money Laundering example](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/LangGraph/LangGraph_ReAct)  
+2. [LangGraph. Human in the loop. MCP. Document Analysis example](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/LangGraph/LangGraph_Human_in_the_loop)  
+
+## Monitoring & Traceability examples
+1. [Arize Phoenix. Open telemetry](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/src/telemetry/setup.py)
+2. [Arize Phoenix. AB testing](https://github.com/Glareone/AI-RAG-In-Depth/tree/main/LangGraph/LangGraph_ReAct/ab_testing)  
 
 ## LangGraph Patterns
 ![image](https://github.com/user-attachments/assets/336652b8-71ad-441b-a530-a333fd60a1cd)
