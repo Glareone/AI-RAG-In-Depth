@@ -1,0 +1,139 @@
+TECHFLOW INC (NASDAQ: TFI)
+ANNUAL REPORT — FISCAL YEAR 2024
+Filed: February 14, 2025
+
+================================================================================
+CONSOLIDATED BALANCE SHEET
+As of December 31, 2024 and December 31, 2023
+(in USD thousands)
+================================================================================
+
+ASSETS
+
+Current Assets:
+  Cash and cash equivalents              $412,800       $318,600
+  Short-term investments                 $287,500       $204,300
+  Accounts receivable, net               $198,400       $172,100
+  Deferred contract costs, current        $24,600        $21,800
+  Prepaid expenses and other              $31,200        $27,400
+  Total Current Assets                   $954,500       $744,200
+
+Non-Current Assets:
+  Property, plant and equipment, net      $98,600        $87,300
+  Operating lease right-of-use assets     $62,400        $71,800
+  Capitalized software development costs $142,300       $118,700
+  Goodwill                               $524,100       $524,100
+  Intangible assets, net                 $187,400       $221,500
+  Deferred tax assets                     $41,200        $36,900
+  Other long-term assets                  $18,700        $14,200
+  Total Non-Current Assets             $1,074,700     $1,074,500
+
+TOTAL ASSETS                           $2,029,200     $1,818,700
+
+LIABILITIES AND SHAREHOLDERS' EQUITY
+
+Current Liabilities:
+  Accounts payable                        $42,300        $38,700
+  Deferred revenue, current              $187,600       $168,400
+  Accrued compensation                    $54,800        $48,200
+  Operating lease liabilities, current    $14,200        $13,800
+  Other accrued liabilities               $28,100        $24,600
+  Total Current Liabilities              $327,000       $293,700
+
+Non-Current Liabilities:
+  Long-term debt                         $300,000       $300,000
+  Deferred revenue, non-current           $48,700        $41,200
+  Operating lease liabilities, non-current $51,300       $61,400
+  Deferred tax liabilities                 $22,400        $18,700
+  Other long-term liabilities              $12,600        $10,400
+  Total Non-Current Liabilities          $435,000       $431,700
+
+Total Liabilities                        $762,000       $725,400
+
+Shareholders' Equity:
+  Common stock ($0.001 par, 500M shares
+    authorized, 87.4M issued/outstanding)     $87            $86
+  Additional paid-in capital             $682,400       $648,300
+  Retained earnings                      $610,200       $467,400
+  Accumulated other comprehensive income   ($25,487)     ($22,483)
+  Total Shareholders' Equity           $1,267,200     $1,093,300
+
+TOTAL LIABILITIES AND SHAREHOLDERS' EQUITY $2,029,200 $1,818,700
+
+================================================================================
+CONSOLIDATED INCOME STATEMENT
+For the fiscal years ended December 31, 2024 and December 31, 2023
+(in USD thousands)
+================================================================================
+
+Net revenues:
+  Subscription and SaaS                  $698,400       $583,200
+  Professional services                   $98,700        $87,300
+  Maintenance and support                 $62,100        $58,400
+Total net revenues                       $859,200       $728,900
+
+Cost of revenues:
+  Cost of subscription and SaaS         ($124,300)     ($108,600)
+  Cost of professional services           ($71,400)      ($64,200)
+  Cost of maintenance and support         ($12,400)      ($11,800)
+Total cost of revenues                  ($208,100)     ($184,600)
+
+Gross profit                             $651,100       $544,300
+  Gross margin                              75.8%          74.7%
+
+Operating expenses:
+  Research and development              ($198,400)     ($172,100)
+  Sales and marketing                   ($212,600)     ($184,300)
+  General and administrative              ($68,700)      ($61,400)
+  Amortization of acquired intangibles    ($34,100)      ($34,100)
+Total operating expenses                ($513,800)     ($451,900)
+
+Operating income (EBIT)                  $137,300        $92,400
+  Operating margin                          16.0%          12.7%
+
+Interest income                           $28,400        $18,200
+Interest expense                          ($9,800)       ($9,800)
+Other income (expense), net                $4,100         $2,300
+
+Income before income taxes               $160,000       $103,100
+Income tax expense                        ($17,200)      ($10,900)
+Net income                               $142,800        $92,200
+  Net margin                                16.6%          12.6%
+
+Earnings per share — basic                  $1.64          $1.07
+Earnings per share — diluted                $1.61          $1.05
+Weighted average shares outstanding — basic  87.1M         86.4M
+
+================================================================================
+NOTES TO FINANCIAL STATEMENTS (SELECTED)
+================================================================================
+
+NOTE 4 — DEFERRED REVENUE AND REMAINING PERFORMANCE OBLIGATIONS
+
+Deferred revenue represents amounts billed to customers for which revenue has not yet
+been recognized. As of December 31, 2024, total deferred revenue was $236,300 thousand.
+Remaining performance obligations (RPO) totaled $1,842,600 thousand, of which
+approximately 58% is expected to be recognized over the next 24 months. RPO grew 31%
+year-over-year, indicating strong forward revenue visibility.
+
+Net Revenue Retention (NRR): 118% for FY2024 (FY2023: 114%).
+Annual Recurring Revenue (ARR): $762,400 thousand as of December 31, 2024.
+
+NOTE 6 — DEBT
+
+In March 2022, the Company issued $300,000 thousand of 2.375% senior unsecured notes
+due March 2029. The notes are investment grade rated (BBB- / Baa3). The Company
+maintains a $200,000 thousand revolving credit facility (undrawn as of December 31, 2024).
+
+NOTE 10 — SHARE REPURCHASE PROGRAM
+
+In November 2024 the Board authorized a $200M share repurchase program. As of
+December 31, 2024, the Company had repurchased $42,300 thousand of common stock
+under this program.
+
+NOTE 14 — SEGMENT INFORMATION
+
+The Company operates as a single reportable segment. Revenue by geography:
+  North America: $601,400 (70.0%)
+  Europe: $189,000 (22.0%)
+  Asia-Pacific and Rest of World: $68,800 (8.0%)
