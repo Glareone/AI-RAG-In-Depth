@@ -1,0 +1,101 @@
+ACME INDUSTRIAL CORP (NASDAQ: ACM)
+Q4 2024 EARNINGS CONFERENCE CALL TRANSCRIPT
+Date: February 5, 2025 | 8:30 AM ET
+
+PARTICIPANTS:
+  Margaret Holloway  — Chief Executive Officer
+  David Park         — Chief Financial Officer
+  Sarah Okonkwo      — VP, Investor Relations
+
+================================================================================
+
+SARAH OKONKWO: Good morning, and welcome to ACME Industrial's fourth quarter and full
+year 2024 earnings call. Before we begin, I'd like to remind everyone that this call
+may contain forward-looking statements. Actual results may differ materially from those
+projected. A reconciliation of non-GAAP measures is available in our press release.
+I'll now turn the call over to our CEO, Margaret Holloway.
+
+MARGARET HOLLOWAY (CEO): Thank you, Sarah, and good morning, everyone. Fiscal 2024 was
+undeniably a difficult year for ACME. We faced a confluence of headwinds — weakening
+industrial demand across North America and Europe, elevated raw material costs that
+pressured our margins, and the operational disruption of launching Project Streamline
+while maintaining customer commitments. Full-year revenue declined 8.1% to $2.4 billion,
+and adjusted EBITDA came in at $374 million, well below our original guidance of
+$420–440 million.
+
+I want to be direct with investors: we are not satisfied with these results, and we
+have made significant changes to address them. First, Project Streamline is on track.
+We closed the Canton, Ohio facility in November and expect full run-rate savings of
+$65 million by Q3 2025. Second, the divestiture of our Specialty Coatings division,
+announced in January, will generate $87 million in cash proceeds to reduce debt.
+Third, we have extended conversations with our lending syndicate about the $185 million
+term loan maturity. We expect to announce a refinancing solution in Q1 2025.
+
+Despite the challenges, our Aerospace & Defense segment was a bright spot, growing 14%
+year-over-year and now representing 22% of total revenue. This is our highest-margin
+segment at approximately 18% EBIT margin, and we see continued growth driven by
+defense spending and commercial aviation recovery.
+
+DAVID PARK (CFO): Thank you, Margaret. Let me walk through the Q4 and full-year
+financials in more detail.
+
+Q4 2024 revenue was $574 million, down 11.2% year-over-year and below our guidance of
+$590–610 million. The shortfall was driven by a $24 million reduction in orders from
+two large automotive customers who delayed their capex programs into 2025.
+
+Full-year gross margin was 24.7%, a 320-basis-point compression from 27.9% in 2023.
+Approximately 180 basis points of this compression was due to steel and aluminum cost
+inflation, with the remaining 140 basis points from the lower fixed-cost absorption as
+volumes declined.
+
+Our balance sheet remains a priority focus. Total debt at year-end was $1.727 billion,
+with net leverage of 4.6x trailing adjusted EBITDA of $374 million. Our credit agreement
+allows up to 5.0x, so we have a 40-basis-point cushion. The team is laser-focused on
+free cash flow conversion — we generated $201 million in operating cash flow in 2024,
+and we are targeting $260–280 million in 2025 as restructuring charges normalize.
+
+For 2025 guidance, we are projecting full-year revenue of $2.35–2.45 billion and
+adjusted EBITDA of $390–420 million. We expect modest sequential improvement each
+quarter as Project Streamline savings ramp and automotive customer demand recovers.
+
+MARGARET HOLLOWAY (CEO): I want to close by acknowledging the concern we have heard from
+shareholders regarding our near-term liquidity. We hear you. The refinancing of the
+$185 million maturity is our single highest priority, and we expect to close that
+transaction before the end of Q1 2025. We have strong relationships with our banking
+partners, and preliminary indications are constructive.
+
+================================================================================
+Q&A SESSION (SELECTED)
+================================================================================
+
+ANALYST (Goldman Sachs): Margaret, you mentioned the term loan refinancing is your top
+priority. Can you give us any more color — are you looking at a full refinancing or a
+maturity extension, and what rate environment are you pricing against?
+
+MARGARET HOLLOWAY: We're evaluating both options — an amendment and extension of the
+existing facility, or a new term loan. Given current SOFR levels we expect the
+all-in cost to increase by approximately 75–100 basis points versus our current rate,
+which David can model into your interest expense estimate. We'll have more clarity in
+the next 30 days.
+
+ANALYST (JPMorgan): David, the covenant cushion of 40 basis points seems thin. What's
+the plan if EBITDA comes in below the low end of guidance?
+
+DAVID PARK: We have a covenant relief mechanism that we negotiated with our lending
+group in Q3 2024 that allows us to add back up to $30 million in restructuring charges
+for the purpose of covenant calculations. Even in a downside scenario where EBITDA came
+in 10% below guidance, we would remain in compliance. We also have the $87 million
+Coatings divestiture proceeds available to reduce debt and improve the leverage ratio.
+
+ANALYST (BofA Securities): Can you comment on the Aerospace & Defense growth outlook?
+Is the 14% growth rate sustainable?
+
+MARGARET HOLLOWAY: We are very encouraged by the pipeline. We have $1.2 billion in
+qualified opportunities in A&D, and our win rate has improved meaningfully. I would
+characterize 10–14% organic growth as a realistic range for the next two to three years,
+driven by both new program wins and aftermarket parts demand as the installed base grows.
+This is the segment where we are selectively investing even as we cut costs elsewhere.
+
+================================================================================
+END OF TRANSCRIPT
+================================================================================

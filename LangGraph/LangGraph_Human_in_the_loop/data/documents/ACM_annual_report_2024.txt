@@ -1,0 +1,130 @@
+ACME INDUSTRIAL CORP (NASDAQ: ACM)
+ANNUAL REPORT — FISCAL YEAR 2024
+Filed: February 28, 2025
+
+================================================================================
+CONSOLIDATED BALANCE SHEET
+As of December 31, 2024 and December 31, 2023
+(in USD thousands)
+================================================================================
+
+ASSETS
+
+Current Assets:
+  Cash and cash equivalents              $142,300       $198,500
+  Accounts receivable, net               $387,600       $354,200
+  Inventories                            $521,400       $489,700
+  Prepaid expenses and other              $38,900        $41,200
+  Total Current Assets                 $1,090,200     $1,083,600
+
+Non-Current Assets:
+  Property, plant and equipment, net   $1,842,600     $1,901,300
+  Goodwill                               $634,500       $634,500
+  Intangible assets, net                 $212,800       $248,900
+  Deferred tax assets                     $54,700        $49,600
+  Other long-term assets                  $31,200        $28,400
+  Total Non-Current Assets             $2,775,800     $2,862,700
+
+TOTAL ASSETS                           $3,866,000     $3,946,300
+
+LIABILITIES AND SHAREHOLDERS' EQUITY
+
+Current Liabilities:
+  Accounts payable                       $298,400       $271,600
+  Short-term debt and current portion
+    of long-term debt                    $185,000       $120,000
+  Accrued liabilities                    $148,700       $159,300
+  Income taxes payable                    $12,400        $18,700
+  Total Current Liabilities              $844,500       $569,600
+
+Non-Current Liabilities:
+  Long-term debt                       $1,542,000     $1,720,000
+  Deferred tax liabilities               $187,300       $201,400
+  Pension and post-retirement benefits   $224,600       $218,900
+  Other long-term liabilities             $62,100        $57,800
+  Total Non-Current Liabilities        $2,016,000     $2,198,100
+
+Total Liabilities                      $2,860,500     $2,767,700
+
+Shareholders' Equity:
+  Common stock ($0.01 par, 200M shares
+    authorized, 124.6M issued/outstanding)  $1,246       $1,246
+  Additional paid-in capital             $412,700       $408,300
+  Retained earnings                      $634,800       $816,200
+  Accumulated other comprehensive loss   ($43,246)      ($47,146)
+  Total Shareholders' Equity           $1,005,500     $1,178,600
+
+TOTAL LIABILITIES AND SHAREHOLDERS' EQUITY $3,866,000 $3,946,300
+
+================================================================================
+CONSOLIDATED INCOME STATEMENT
+For the fiscal years ended December 31, 2024 and December 31, 2023
+(in USD thousands)
+================================================================================
+
+Net revenues                           $2,418,300     $2,631,400
+Cost of goods sold                    ($1,821,400)   ($1,897,200)
+Gross profit                             $596,900       $734,200
+  Gross margin                              24.7%          27.9%
+
+Operating expenses:
+  Selling, general and administrative   ($298,400)     ($271,600)
+  Research and development               ($52,300)      ($48,700)
+  Restructuring charges                  ($41,200)           $—
+  Amortization of intangibles            ($36,100)      ($36,100)
+Total operating expenses                ($428,000)     ($356,400)
+
+Operating income (EBIT)                  $168,900       $377,800
+  Operating margin                           7.0%          14.4%
+
+Interest expense, net                    ($98,400)      ($89,700)
+Other income (expense), net               ($4,200)        $3,100
+
+Income before income taxes                $66,300       $291,200
+Income tax expense                        ($18,100)      ($74,800)
+Net income                                $48,200       $216,400
+  Net margin                                 2.0%           8.2%
+
+Earnings per share — basic                  $0.39          $1.74
+Earnings per share — diluted                $0.38          $1.71
+Weighted average shares outstanding — basic  124.6M        124.4M
+
+================================================================================
+NOTES TO FINANCIAL STATEMENTS (SELECTED)
+================================================================================
+
+NOTE 5 — DEBT
+
+As of December 31, 2024, total debt was $1,727,000 thousand consisting of:
+  - $500,000 senior secured term loan A (due 2027, SOFR + 2.25%)
+  - $750,000 senior unsecured notes (5.875% fixed, due 2029)
+  - $292,000 revolving credit facility drawn ($400,000 total capacity, due 2026)
+  - $185,000 current portion of long-term debt
+
+The Company's credit agreement contains covenants including:
+  - Net leverage ratio not to exceed 5.0x EBITDA
+  - Interest coverage ratio of at least 2.5x
+  As of December 31, 2024, the Company was in compliance with all covenants.
+  Net leverage ratio: 4.6x (2023: 3.2x). Interest coverage: 2.8x (2023: 5.8x).
+
+NOTE 8 — RESTRUCTURING
+
+In Q3 2024 the Company initiated a restructuring program (Project Streamline) targeting
+$65M in annual cost savings by closing two manufacturing facilities in Ohio and
+consolidating European operations. $41.2M in charges were recorded in FY2024.
+An additional $18–22M in charges are expected in H1 2025.
+
+NOTE 12 — GOING CONCERN ASSESSMENT
+
+Management has evaluated conditions and events that could raise substantial doubt about
+the Company's ability to continue as a going concern. The $185M current portion of
+long-term debt due in 2025, combined with the decline in operating cash flow ($201M in
+2024 vs. $398M in 2023), requires the Company to refinance or repay this obligation.
+Management believes existing credit facilities and projected operating cash flows are
+sufficient to meet obligations for at least 12 months, though no assurances can be given.
+
+NOTE 15 — SUBSEQUENT EVENTS
+
+On January 14, 2025, the Company announced the divestiture of its non-core Specialty
+Coatings division for $87M in cash, which will be used to reduce revolving credit
+facility borrowings.

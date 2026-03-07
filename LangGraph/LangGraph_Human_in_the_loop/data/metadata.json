@@ -1,0 +1,53 @@
+{
+  "documents": [
+    {
+      "doc_id": "ACM-AR-2024",
+      "ticker": "ACM",
+      "company_name": "ACME Industrial Corp",
+      "sector": "Industrials",
+      "doc_type": "annual_report",
+      "fiscal_period": "FY2024",
+      "fiscal_year_end": "2024-12-31",
+      "filed_date": "2025-02-28",
+      "file_path": "data/documents/ACM_annual_report_2024.txt",
+      "description": "ACME Industrial Corp FY2024 Annual Report with full balance sheet and income statement"
+    },
+    {
+      "doc_id": "TFI-AR-2024",
+      "ticker": "TFI",
+      "company_name": "TechFlow Inc",
+      "sector": "Technology",
+      "doc_type": "annual_report",
+      "fiscal_period": "FY2024",
+      "fiscal_year_end": "2024-12-31",
+      "filed_date": "2025-02-14",
+      "file_path": "data/documents/TFI_annual_report_2024.txt",
+      "description": "TechFlow Inc FY2024 Annual Report with full balance sheet and income statement"
+    },
+    {
+      "doc_id": "ACM-EC-Q42024",
+      "ticker": "ACM",
+      "company_name": "ACME Industrial Corp",
+      "sector": "Industrials",
+      "doc_type": "earnings_call",
+      "fiscal_period": "Q4 2024",
+      "call_date": "2025-02-05",
+      "file_path": "data/documents/ACM_earnings_call_Q4_2024.txt",
+      "description": "ACME Industrial Corp Q4 2024 earnings call transcript with management commentary and Q&A"
+    }
+  ],
+  "companies": {
+    "ACM": {
+      "name": "ACME Industrial Corp",
+      "sector": "Industrials",
+      "exchange": "NASDAQ",
+      "documents": ["ACM-AR-2024", "ACM-EC-Q42024"]
+    },
+    "TFI": {
+      "name": "TechFlow Inc",
+      "sector": "Technology",
+      "exchange": "NASDAQ",
+      "documents": ["TFI-AR-2024"]
+    }
+  }
+}
