@@ -14,6 +14,9 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class MCPToolsSettings(BaseSettings):
+    # depending on how we run the mcp_server (separate folder), in Docker or in the separate process - we need to choose the separate configuration
+    # stdio - process
+    # sse - docker
     mcp_transport: Literal["stdio", "sse"] = "stdio"
     mcp_server_host: str = "localhost"
     mcp_server_port: int = 8000

@@ -192,7 +192,6 @@ END
 
 ### ✅ Step 5: MCP tools (`src/mcp_tools/`)
 - `server.py` — FastMCP server exposing 5 tools: `list_available_documents`, `get_document`, `get_document_info`, `find_document_by_ticker_and_type`, `preview_document`; launched via stdio transport
-- `client.py` — `get_mcp_tools()` async context manager + `load_mcp_tools()` convenience fn using `MultiServerMCPClient`
 
 ---
 
