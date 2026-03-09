@@ -35,6 +35,9 @@ dev = [
 [tool.uv]
 package = false
 
+[tool.uv.workspace]
+members = ["mcp_server"]
+
 [tool.ruff]
 line-length = 88
 target-version = "py312"
