@@ -185,17 +185,27 @@ END
 - `ACM_earnings_call_Q4_2024.txt` — ACME Q4 2024 earnings call transcript with liquidity commentary
 - `metadata.json` — document registry by ticker, doc type, and file path
 
+### ✅ Step 4: Local tools (`src/tools/`)
+- `data_loader.py` — `load_registry`, `list_documents`, `get_document_metadata`, `get_document_text`, `find_document`
+- `document_parser.py` — `extract_text` (.txt, .pdf), `extract_text_preview`
+- `calculator.py` — `calculate_liquidity_ratios`, `calculate_profitability_ratios`, `calculate_leverage_ratios`
+
+### ✅ Step 5: MCP tools (`src/mcp_tools/`)
+- `server.py` — FastMCP server exposing 5 tools: `list_available_documents`, `get_document`, `get_document_info`, `find_document_by_ticker_and_type`, `preview_document`; launched via stdio transport
+- `client.py` — `get_mcp_tools()` async context manager + `load_mcp_tools()` convenience fn using `MultiServerMCPClient`
+
 ---
 
 ## Pending
 
 ### ✅ Step 2: Pydantic configuration
 ### ✅ Step 3: Sample financial data
-### Step 4: Local tools
-### Step 5: MCP tools
+### ✅ Step 4: Local tools
+### ✅ Step 5: MCP tools
 ### Step 6: Agent state
 ### Step 7: Graph with interrupts
 ### Step 8: Structured output
 ### Step 9: Prompts
 ### Step 10: Telemetry
 ### Step 11: Entry point + CLI interrupt loop
+

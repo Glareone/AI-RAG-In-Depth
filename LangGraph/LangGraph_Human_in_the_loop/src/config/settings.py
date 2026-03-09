@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     # AWS Bedrock
     aws_profile: str = ""
     aws_region: str = "eu-central-1"
-    bedrock_model_id: str = "arn:aws:bedrock:eu-central-1:119796001828:inference-profile/eu.anthropic.claude-sonnet-4-6"
+    bedrock_model_id: str = ""
     # Arize Phoenix
     phoenix_endpoint: str = "http://localhost:6006/"
     phoenix_project_name: str = "financial-doc-analyst"
