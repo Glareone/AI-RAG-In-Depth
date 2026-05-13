@@ -179,6 +179,9 @@ Theoretical Part
     c. Trajectory Evaluation  
     d. Structure of the Evaluation  
     e. Application Improvements using G-Eval (LLM-as-a-Judge)  
+    f. [Phoenix. Trajectory analysis](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L9.ipynb)  
+    g. [Phoenix. Evaluations](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L7_add_evaluations_to_phoenix.ipynb)   
+    h. [Phoenix. Tool and Span tracing](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L5_with_arize_phoenix.ipynb)  
 
 ### 3. Advanced ML Architecture & Training
 1. Neural Network Fundamentals   
@@ -285,20 +288,25 @@ PeFT/Lora/QLora could be used in:
     b. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)  
     c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)  
 4. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
-    a. State Management - Persistent conversation state  
-    b. Graph Architecture - Nodes and edges for complex workflows
+    a. State Management - Persistent conversation state
+    b. State Management - in-context and state memory  
+    b. Graph Architecture - Nodes and edges for complex workflows  
     c. [Conditional Routing. Basics](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/src/agent/graph.py)  
     c. Conditional Routing - Dynamic flow based on LLM decisions  
     d. Human-in-the-Loop - Approval gates and manual interventions  
     e. Parallel Processing - Concurrent graph branch execution
+    f. LangGraph Tool Parallel execution - concurrent tool execution
+    g. Skills - different abilities connected on the fly  
 6. [LangGraph Examples and Prototypes](https://github.com/Glareone/AI-LLM-RAG-best-practices/edit/main/README.md)  
-    a. [LangGraph, Structured Output, Arize Phoenix](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)  
-7. LangGraph System Prompt Techniques  
+    a. [LangGraph, Structured Output, Arize Phoenix](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)
+    b. LangGraph 3 layer memory
+    c. LangGraph Multi-Agent Orchestrator
+8. LangGraph System Prompt Techniques  
     a. [Decision-Tree Prompts & Pattern](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Decision-Tree.md)   
     b. [Multi-Agent Prompt & Pattern. Primitive Version](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Multi-Agent.md)   
     c. [Plan-Execute Prompt & Pattern](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Plan-Execute.md)  
     d. [ReAct. Prompts & Ideas](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-ReACT.md)  
-    e. [Prompt-Reflection Pattern. Idea](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Reflection.md)  
+    e. [Prompt-Reflection Pattern. Idea](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangGraph/Prompt-Reflection.md)
 9. Semantic Kernel (Microsoft)  
     a. Kernel Architecture - Central orchestration engine  
     b. Plugin System - Reusable functions (native C# or prompt-based)  
@@ -362,9 +370,9 @@ PeFT/Lora/QLora could be used in:
 
 ### AI System monitoring, evaluation and tracking. LangWatch vs LangFuse vs Phoenix vs AI Foundry
 1. [LangWatch vs LangFuse vs AI Foundry comparison](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/LangWatch/LangWatch%20And%20LangFuse.md)
-2. [Examples. Arize Phoenix for Python](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/tree/main/Arize-Phoenix)
+2. [Examples. Arize Phoenix for Python](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/tree/main/Arize-Phoenix)  
   a. [Phoenix. Trajectory analysis](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L9.ipynb)  
-  b. [Phoenix. Evaluations](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L7_add_evaluations_to_phoenix.ipynb)  
+  b. [Phoenix. Evaluations](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L7_add_evaluations_to_phoenix.ipynb)   
   c. [Phoenix. Tool and Span tracing](https://github.com/Glareone/AI-RAG-Basics-To-Advanced-With-Examples/blob/main/Arize-Phoenix/L5_with_arize_phoenix.ipynb)  
 4. Examples. Arize Phoenix for LangGraph (In progress)  
 ---
