@@ -288,15 +288,19 @@ PeFT/Lora/QLora could be used in:
     b. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)  
     c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)  
 4. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
-    a. State Management - Persistent conversation state
-    b. State Management - in-context and state memory  
-    b. Graph Architecture - Nodes and edges for complex workflows  
-    c. [Conditional Routing. Basics](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/src/agent/graph.py)  
-    c. Conditional Routing - Dynamic flow based on LLM decisions  
-    d. Human-in-the-Loop - Approval gates and manual interventions  
-    e. Parallel Processing - Concurrent graph branch execution
-    f. LangGraph Tool Parallel execution - concurrent tool execution
-    g. Skills - different abilities connected on the fly  
+    a. State Management - Persistent conversation state  (Persistent state)  
+    b. State Management - In-Context and State Memory. What to place, where to place, and why  
+    c. Graph Architecture - Nodes and edges for complex workflows. Complex graph patterns (subgraphs, parallel branches)  
+    d. Conditional Routing - Dynamic flow based on LLM decisions  
+    e. HITL Human-in-the-Loop interrupts - Approval gates and manual interventions  
+    f. Parallel Processing - Concurrent graph branch execution  
+    g. Tool Parallel Execution - concurrent tool execution. How and when LangGraph calls concurrent tool execution  
+    h. Skills - Different abilities connected on the fly  
+    i. MemorySaver (in-memory checkpointing)  
+    j. Structured Output    
+    k. Multi-LLM Node  
+    l. In-context vs external memory separation  
+    m. Parallel branch execution (Send API)  
 6. [LangGraph Examples and Prototypes](https://github.com/Glareone/AI-LLM-RAG-best-practices/edit/main/README.md)  
     a. [LangGraph, Structured Output, Arize Phoenix](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_ReAct/README.md)
     b. LangGraph 3 layer memory
