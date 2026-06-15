@@ -193,3 +193,168 @@ Decoupling gives:
 - Commitment applied to action (sticky, prevents thrashing)
 
 Same input data, two independent policies derived from it.
+
+---
+
+## 6. The Commitment Threshold — Variable, Not Fixed
+
+The threshold for replanning should scale with context:
+
+```
+threshold = base_δ × f(plan_investment, reversibility, context_stability)
+```
+
+```
+situation                              threshold adjustment
+──────────────────────────────────────────────────────────────────
+early in plan (few steps completed)    lower  — cheap to replan
+deep in plan (many steps completed)    higher — high replan cost
+reversible next action                 lower  — safe to try
+irreversible next action (send email)  much higher — require confidence
+stable context (data as expected)      higher — stay the course
+unstable context (repeated failures)   lower  — current plan is likely wrong
+```
+
+An agent that received 3 consecutive tool failures should replan more readily than one executing smoothly — the failures are evidence the current plan is wrong.
+
+---
+
+## 7. Reasoning Effort as the Cost Lever
+
+Modern providers (Anthropic, OpenAI, Google) expose reasoning effort as a per-call parameter:
+
+```python
+response = client.chat(
+    model="...",
+    reasoning_effort="low" | "medium" | "high",
+    messages=[...]
+)
+```
+
+The LOD mapping:
+
+```
+context                       reasoning_effort     game AI equivalent
+──────────────────────────────────────────────────────────────────────
+routine execution step        low or none          distant unit, slow tick
+re_evaluation (clean)         low                  background unit check
+re_evaluation (anomaly)       medium               in-zone unit, medium tick
+escalation decision           medium-high          combat unit, fast tick
+planning / replan             high                 full AI rescore, event
+```
+
+The provider manages inference internally. You set effort per node. No custom scheduler needed at the application layer.
+
+---
+
+## 8. The LOD Dividend — Quantified
+
+Comparing naive ReAct against LOD-aware architecture on a 10-step task:
+
+```
+naive ReAct:
+  every step → full reasoning call
+  total: 10 high-effort reasoning calls
+  cost:  10x baseline
+
+LOD-aware (this architecture):
+  planning:        1 high-effort call
+  routine steps:   7 low-effort calls (or none)
+  anomalies:       1-2 medium-effort calls
+  total:           ~3-4 effective high-cost equivalents
+  cost:            ~30-40% of naive
+
+graceful degradation under tight budget:
+  reasoning preserved for: planning, irreversible actions
+  reasoning sacrificed:    routine steps, clean checks
+  result: degraded coherence, not catastrophic failure
+```
+
+The practical argument for LOD is not "more elegant" — it is costs 3x less to run with better coherence properties.
+
+---
+
+## 9. Full Architecture
+
+```
+USER INQUIRY
+      ↓
+PLANNING LAYER  (high reasoning effort, runs once or on replan)
+  LLM decomposes inquiry into hierarchical goal stack
+  outputs structured plan:
+    { goal, sub_goals[], current_task, success_conditions, termination_conditions }
+      ↓
+┌──────────────────────────────────────────────────────────────┐
+│  EXECUTION LOOP (per task)                                   │
+│                                                              │
+│  pre_execution_node           (low reasoning default)        │
+│    load state, select tool, construct params                 │
+│         ↓                                                    │
+│  [tool call: MCP / skill / user prompt]                      │
+│         ↓                                                    │
+│  re_evaluation_node           (low reasoning default)        │
+│    check result against success_condition                    │
+│    compute delta, apply commitment threshold                 │
+│    → continue / retry / replan / escalate                    │
+│         ↓                                                    │
+│  post_processing_node         (low reasoning default)        │
+│    update agent state                                        │
+│    route to next action                                      │
+│                                                              │
+└──────────────────────────────────────────────────────────────┘
+      ↓
+OUTPUT LAYER
+  stack empty + all success met  → finalize
+  stack blocked                  → explain + ask user
+  replan triggered               → planning layer (context preserved)
+```
+
+---
+
+## 10. The Test That Reveals Everything
+
+To diagnose whether an existing DeepAgent implementation has these properties:
+
+Give the agent a task requiring 5+ sequential tool calls where step 3 returns unexpected data.
+
+```
+expected behavior:
+  adapt plan, handle unexpected data, continue coherently
+
+failure modes and what they reveal:
+  ignores unexpected data → produces wrong output
+    → no event invalidation; everything treated as NO ACTION
+
+  replans from scratch → loses prior context
+    → no commitment threshold; every event triggers FULL REPLAN
+
+  loops on step 3 forever
+    → no termination condition; success/failure not explicit
+
+  asks user about every minor uncertainty
+    → no escalation threshold; partial uncertainty treated as blocking
+```
+
+Each failure mode maps to exactly one missing architectural component. The test is a diagnostic, not just a pass/fail check.
+
+---
+
+## 11. Open Implementation Questions
+
+- Should `re_evaluation_node` be a separate LangGraph node or a conditional edge?
+- How do you represent `plan_investment` as a numeric signal for threshold calculation?
+- What is the right serialization format for goal stack handoff to planning layer on replan?
+- Can `pre_execution_node` cache tool parameter construction for repeated identical tasks?
+- How does this three-node pattern interact with streaming output to the user?
+- Empirical test: same goal stack, same tool results, different effort allocations — measure output quality vs. token cost across runs
+
+---
+
+## References
+
+Derived from analysis of:
+- Pod-Bot architecture (Counter-Strike) — layered AI separation of concerns
+- StarCraft / Dota bot architectures — hierarchical goal decomposition
+- Halo 2 AI (Damian Isla, GDC 2005) — Behavior Tree popularization
+- Prospect Theory (Kahneman & Tversky, 1979) — commitment threshold validation
+- OpenAI Five — strategic layer as ML, execution as classical
