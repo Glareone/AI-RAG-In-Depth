@@ -191,3 +191,140 @@ This pattern aligns precisely with the two-knob principle from the LOD note:
 - knob 2: switch threshold (when does the plan actually change)
 
 The dedicated todo-update node IS knob 2. Pure DeepAgent collapses both into one.
+
+---
+
+## 6. Static List + Static Control — Is It Achievable?
+
+A common question: can we use a static list with static control?
+The honest answer: not really in any useful agent sense.
+
+Walking through the four combinations:
+
+**List static + control static:**
+- you have a deterministic script with LLM-flavored tool calls
+- this is a LangGraph DAG, not an agent
+- valid pattern, but it's not a DeepAgent — call it what it is
+
+**List static + control dynamic:**
+- plan-then-execute pattern with a fixed plan
+- works for narrow domains where the plan structure is universal
+- dynamism is only in HOW each step is executed, not WHICH steps run
+- this is the Static-DRA approach
+
+**List dynamic + control static:**
+- LLM proposes plan changes but a hardcoded policy decides whether to accept
+- rarely useful — you've added LLM cost without LLM benefit
+- the policy is doing the work the LLM was supposed to do
+
+**List dynamic + control dynamic:**
+- DeepAgent
+- maximum flexibility, maximum cost, hardest to debug
+- the standard LangChain deepagents library
+
+The dedicated-node pattern (dynamic list, semi-static control via dedicated node)
+sits between options 2 and 4 — and is genuinely the best engineering tradeoff
+for most production use cases.
+
+---
+
+## 7. When DeepAgent Earns Its Cost
+
+DeepAgent with full dynamic planning is justified when:
+
+```
+✓ task structure cannot be predicted from user inquiry alone
+✓ intermediate results legitimately invalidate the original plan
+✓ task duration is long enough that replanning cost is amortized
+✓ failure cost is high enough to justify adaptation overhead
+✓ context offloading to filesystem is needed (long-running, lots of data)
+✓ subagent delegation is needed (parallel work, isolated contexts)
+```
+
+DeepAgent is overkill when:
+
+```
+✗ workflow is known — use LangGraph DAG
+✗ task is short (1-5 steps) — use ReAct
+✗ steps are deterministic — write code, no LLM
+✗ failure is cheap — let it fail and retry rather than building adaptation
+```
+
+Supporting both ReAct and DeepAgent archetypes in a platform is correct —
+they serve different task profiles. The decision should be made per agent based
+on the task profile, not as a default.
+
+---
+
+## 8. The Cost / Complexity Curve
+
+```
+task complexity →
+   simple     medium      complex     very complex
+─────────────────────────────────────────────────────
+ReAct        ✓ optimal    overkill    fails           fails badly
+ReAct+todos  overkill     ✓ optimal   acceptable      struggles
+DeepAgent    massive      overkill    ✓ optimal       acceptable
+             overkill
+```
+
+For "simple" tasks — bypass to a direct tool call or LangGraph DAG.
+For "very complex" tasks — DeepAgent + subagents pattern.
+
+---
+
+## 9. Recommendation for Platform Design
+
+For an agent platform supporting multiple archetypes:
+
+**Keep both ReAct and DeepAgent. Document decision criteria clearly.**
+
+```
+use ReAct when:
+  - 1-5 tool calls expected
+  - linear workflow, low branching
+  - prototyping or exploring a new use case
+
+use DeepAgent when:
+  - 10+ tool calls likely
+  - branching is data-dependent
+  - production workflow with adaptation requirements
+  - need persistent state across long runs
+
+use neither (use LangGraph DAG):
+  - workflow is known and fixed
+  - LLM only needed for specific decision points
+  - cost/latency are primary concerns
+```
+
+The mistake to avoid: defaulting users to DeepAgent because it's "more powerful."
+Most use cases are simple ReAct or even classical workflow territory.
+DeepAgent should be a deliberate choice, not a default.
+
+---
+
+## 10. Open Implementation Questions
+
+- Measure cost difference: same task on ReAct vs ReAct+todos vs DeepAgent
+- What is the failure rate of pure ReAct on tasks >10 steps in production?
+- Can the dedicated todo-update node be triggered by tool result classification
+  (FULL REPLAN / PARTIAL ADJUST / NO ACTION from the LOD pattern)?
+- How does subagent delegation interact with hierarchical goal stacks?
+- Should the platform expose Static-DRA as a third archetype for research tasks?
+- Empirical comparison: production reliability of DeepAgent vs ReAct+structured-todos
+
+---
+
+## References
+
+- LangChain Deep Agents Middleware docs: https://docs.langchain.com/oss/python/deepagents/middleware
+- DeepAgent paper (Xiaohongshu, WWW 2026): https://arxiv.org/pdf/2510.21618
+- Static-DRA (hierarchical tree static research agent): https://arxiv.org/pdf/2512.03887
+- Deep Research Agents systematic review: https://arxiv.org/pdf/2506.18096
+- Dynamic Planning vs Static Workflows: https://tao-hpu.medium.com/dynamic-planning-vs-static-workflows-what-truly-defines-an-ai-agent-b13ca5a2d110
+- Plan-then-Execute Resilient Agents: https://arxiv.org/pdf/2509.08646
+- LLM Dynamic Planner (neurosymbolic): https://arxiv.org/pdf/2308.06391
+
+---
+
+Related: [DeepAgent_LOD.md](./DeepAgent_LOD.md) — Level of Detail architecture for reducing reasoning cost in DeepAgent systems.
