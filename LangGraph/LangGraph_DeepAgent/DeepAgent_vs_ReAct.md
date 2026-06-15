@@ -42,14 +42,8 @@ The `deepagents` library built on LangGraph. Adds three middleware on top of ReA
 
 ```
 TodoListMiddleware     → provides write_todos tool
-                         LLM prompted to plan and update list during execution
-
 FilesystemMiddleware   → provides ls/read_file/write_file/edit_file tools
-                         offloads context to virtual files instead of stuffing
-                         everything into the message history
-
 SubAgentMiddleware     → provides task tool to spawn subagents
-                         each subagent has isolated context, own prompts/tools
 ```
 
 All three are middleware on a standard `create_agent` (ReAct) call.
@@ -62,23 +56,15 @@ It IS ReAct, plus extra tools the LLM can use to manage its own state.
 
 ## 2. The Static vs Dynamic Distinction
 
-This terminology comes from academic literature on Deep Research Agents.
-
 ```
 Static workflow:
-  predefined task pipeline
-  sequential subtasks executed in order
-  no adaptation to runtime feedback
+  predefined task pipeline, sequential subtasks, no adaptation
   examples: cron jobs, Airflow DAGs, n8n linear flows
 
 Dynamic workflow:
-  LLM-based task planning
-  agent reconfigures plan based on iterative feedback
-  adaptive to evolving context
+  LLM-based task planning, reconfigures based on iterative feedback
   examples: DeepAgent, ReAct, plan-then-execute with replanner
 ```
-
-The critical threshold:
 
 > A workflow with LLM calls becomes an agent when the LLM gains autonomous
 > control over tool selection, execution order, termination conditions,
@@ -93,62 +79,22 @@ True agents are dynamic by definition.
 
 Short answer: **mostly no, and where it can be, you shouldn't use DeepAgent.**
 
-### Why static DeepAgent rarely makes sense
+If the plan can be fully known in advance — use a LangGraph DAG.
+Pre-defining the todo list defeats the purpose of DeepAgent.
 
-If the plan can be fully known in advance:
-- you don't need an agent — you need a workflow
-- pre-define the steps as a LangGraph state machine
-- use LLM nodes only where ambiguity genuinely exists
-- much cheaper, faster, more reliable
-
-The whole point of DeepAgent's `write_todos` tool is to handle cases where:
-- you don't know all the steps upfront
-- intermediate results affect downstream steps
-- the agent must adapt to unexpected data
-
-Pre-defining the todo list defeats the purpose.
-
-### Where partial static makes sense (the "Static-DRA" approach)
-
-One academic paper (arxiv 2512.03887) proposes Static-DRA — a hierarchical
-tree-based static Deep Research Agent. The structure is predefined,
-but the user can configure two parameters (depth, breadth) to control research scope.
-
-This works because:
-- Research follows a known structural pattern (broad → narrow)
-- User wants predictable control over scope and cost
-- Dynamic exploration would produce inconsistent results across runs
-
-But this is a niche use case. The structure being static is a feature
-of the specific domain (deep research with controllable depth), not a general principle.
-
-### What about purely deterministic todo lists?
-
-If you can write a fixed checklist of tool calls that will always succeed
-in the same order, you don't need an LLM at all — write the code directly.
-The LLM is justified only when:
-- next step depends on prior tool output content
-- some steps may fail and need adaptation
-- the plan structure depends on the specific user inquiry
+One niche exception: Static-DRA (arxiv 2512.03887) uses static structure
+for deep research with user-configurable depth/breadth parameters.
+Domain-specific, not a general principle.
 
 ---
 
-## 4. The Spectrum — How Dynamic Should an Agent Be?
-
-This is the real question. Not "static or dynamic" — but **how much dynamism, where.**
+## 4. The Spectrum
 
 ```
 fully static                                              fully dynamic
 ─────────────────────────────────────────────────────────────────────
 LangGraph DAG    plan-then-execute    DeepAgent+todos    pure ReAct
-no LLM control   LLM plans once,      LLM plans, can     LLM decides
-fixed flow       executes fixed       update todos on    everything per
-                 plan to completion   the fly            step
-```
 
-Each position has tradeoffs:
-
-```
 position              cost      reliability   adaptability   debuggability
 ─────────────────────────────────────────────────────────────────────────
 LangGraph DAG         lowest    highest       lowest         highest
@@ -157,106 +103,137 @@ DeepAgent+todos       medium    medium        high           low
 pure ReAct            highest   lowest        highest        lowest
 ```
 
-The right position depends on the task profile:
-- known workflow, infrequent edge cases → LangGraph DAG with LLM-only-where-needed
-- known objective, unknown execution path → plan-then-execute
-- known objective, partially unknown structure → DeepAgent+todos
-- open-ended exploration → pure ReAct
-
 ---
 
-## 5. Hybrid Architecture — Dedicated Todo Update Node
-
-A common production pattern: ReAct cycle + separate node to manage todo_lists
-when necessary. This is a **superior architecture** to either pure pattern.
+## 5. Hybrid — Dedicated Todo Update Node
 
 ```
 naive DeepAgent:
   LLM has write_todos tool always available
-  LLM decides when to update todos
-  → unpredictable update timing
-  → expensive (full reasoning on every cycle to decide)
+  → unpredictable update timing, expensive
 
 dedicated node pattern:
   ReAct cycle handles execution
   dedicated node decides "should todo list be updated now?"
-  todo list updates are explicit, scoped events
-  → predictable
-  → cheaper (todo update node can use low reasoning effort)
-  → debuggable (you can see exactly when and why the list changed)
+  → predictable, cheaper, debuggable
 ```
 
-This pattern aligns precisely with the two-knob principle from the LOD note:
-- knob 1: evaluation frequency (when does the LLM check progress)
-- knob 2: switch threshold (when does the plan actually change)
-
-The dedicated todo-update node IS knob 2. Pure DeepAgent collapses both into one.
+The dedicated todo-update node separates evaluation frequency from switch threshold.
+Pure DeepAgent collapses both into one expensive decision per cycle.
 
 ---
 
-## 6. Static List + Static Control — Is It Achievable?
+## 6. Static List + Static Control — The Four Combinations
 
-A common question: can we use a static list with static control?
-The honest answer: not really in any useful agent sense.
+```
+list static + control static   → LangGraph DAG (not an agent)
+list static + control dynamic  → plan-then-execute (Static-DRA niche)
+list dynamic + control static  → LLM cost without LLM benefit (avoid)
+list dynamic + control dynamic → DeepAgent (full library)
+```
 
-Walking through the four combinations:
-
-**List static + control static:**
-- you have a deterministic script with LLM-flavored tool calls
-- this is a LangGraph DAG, not an agent
-- valid pattern, but it's not a DeepAgent — call it what it is
-
-**List static + control dynamic:**
-- plan-then-execute pattern with a fixed plan
-- works for narrow domains where the plan structure is universal
-- dynamism is only in HOW each step is executed, not WHICH steps run
-- this is the Static-DRA approach
-
-**List dynamic + control static:**
-- LLM proposes plan changes but a hardcoded policy decides whether to accept
-- rarely useful — you've added LLM cost without LLM benefit
-- the policy is doing the work the LLM was supposed to do
-
-**List dynamic + control dynamic:**
-- DeepAgent
-- maximum flexibility, maximum cost, hardest to debug
-- the standard LangChain deepagents library
-
-The dedicated-node pattern (dynamic list, semi-static control via dedicated node)
-sits between options 2 and 4 — and is genuinely the best engineering tradeoff
-for most production use cases.
+Best production tradeoff: dynamic list + semi-static control via dedicated node.
 
 ---
 
 ## 7. When DeepAgent Earns Its Cost
 
-DeepAgent with full dynamic planning is justified when:
-
 ```
-✓ task structure cannot be predicted from user inquiry alone
-✓ intermediate results legitimately invalidate the original plan
-✓ task duration is long enough that replanning cost is amortized
-✓ failure cost is high enough to justify adaptation overhead
-✓ context offloading to filesystem is needed (long-running, lots of data)
-✓ subagent delegation is needed (parallel work, isolated contexts)
-```
+justified:
+✓ task structure cannot be predicted from user inquiry
+✓ intermediate results legitimately invalidate the plan
+✓ long-running tasks where replanning cost amortizes
+✓ context offloading needed (filesystem middleware)
+✓ subagent delegation needed
 
-DeepAgent is overkill when:
-
+overkill:
+✗ workflow is known → LangGraph DAG
+✗ task is short (1-5 steps) → ReAct
+✗ steps are deterministic → write code
+✗ failure is cheap → retry, don't adapt
 ```
-✗ workflow is known — use LangGraph DAG
-✗ task is short (1-5 steps) — use ReAct
-✗ steps are deterministic — write code, no LLM
-✗ failure is cheap — let it fail and retry rather than building adaptation
-```
-
-Supporting both ReAct and DeepAgent archetypes in a platform is correct —
-they serve different task profiles. The decision should be made per agent based
-on the task profile, not as a default.
 
 ---
 
-## 8. The Cost / Complexity Curve
+## 8. Hard Rails — When Agents Are The Wrong Tool
+
+Wanting "an agent that follows hard rails" is wanting an LLM that behaves like code.
+If it behaves like code — write code.
+
+The fundamental incompatibility:
+
+```
+LLM autonomy                    Deterministic guarantees
+────────────────────────────────────────────────────────
+adapts to novelty               predictable cost
+handles ambiguity               predictable latency
+judgment under uncertainty      testable, debuggable
+emergent behavior               hard rails enforce flow
+```
+
+You cannot have both in the same component.
+
+### The Tool Spectrum
+
+```
+strongest rails ←────────────────────────────────→ weakest rails
+
+state machine   n8n / Zapier   LangGraph DAG   LangGraph+LLM   ReAct   DeepAgent
+hand-coded      visual flow    explicit graph  LLM at nodes    loop    full dynamic
+no LLM          no/scoped LLM  LLM at          LLM at most     LLM     LLM owns
+                               decision pts    decision pts    loop    everything
+```
+
+### n8n — When It's Genuinely the Right Answer
+
+```
+✓ workflow structure is known and stable
+✓ steps are mostly integrations (API calls, data transforms)
+✓ business stakeholders need to read/modify the flow
+✓ failure modes are bounded (retry, skip, alert)
+✓ cost predictability matters
+```
+
+n8n with scoped LLM nodes handles AI-heavy workflows correctly:
+LLM handles ambiguity, n8n handles integration deterministically.
+
+### The Three-Way Choice
+
+```
+1. LangGraph DAG with LLM decision nodes
+   → known workflow with judgment-needed branch points
+
+2. n8n with LLM nodes
+   → business workflows, integration-heavy, non-engineer-editable
+
+3. DeepAgent / ReAct
+   → genuinely open-ended tasks, unknown structure
+```
+
+Most teams pick 3 because it's easiest to demo. Then they hit the wall.
+
+### The Key Question
+
+> What is the smallest amount of LLM autonomy I actually need?
+
+```
+none       → write code or use n8n
+decision   → LangGraph DAG with LLM at specific nodes
+adaptive   → plan-then-execute with replan node
+open-ended → DeepAgent
+```
+
+### Platform Implication
+
+"Use neither (use LangGraph DAG)" is not a footnote —
+it's the third archetype the platform should probably support natively.
+
+Users who want rails will build brittle workarounds if you don't give them the right tool.
+Better to provide the right tool than have users fight the wrong one.
+
+---
+
+## 9. Cost / Complexity Curve
 
 ```
 task complexity →
@@ -264,67 +241,18 @@ task complexity →
 ─────────────────────────────────────────────────────
 ReAct        ✓ optimal    overkill    fails           fails badly
 ReAct+todos  overkill     ✓ optimal   acceptable      struggles
-DeepAgent    massive      overkill    ✓ optimal       acceptable
-             overkill
+DeepAgent    overkill     overkill    ✓ optimal       acceptable
 ```
-
-For "simple" tasks — bypass to a direct tool call or LangGraph DAG.
-For "very complex" tasks — DeepAgent + subagents pattern.
-
----
-
-## 9. Recommendation for Platform Design
-
-For an agent platform supporting multiple archetypes:
-
-**Keep both ReAct and DeepAgent. Document decision criteria clearly.**
-
-```
-use ReAct when:
-  - 1-5 tool calls expected
-  - linear workflow, low branching
-  - prototyping or exploring a new use case
-
-use DeepAgent when:
-  - 10+ tool calls likely
-  - branching is data-dependent
-  - production workflow with adaptation requirements
-  - need persistent state across long runs
-
-use neither (use LangGraph DAG):
-  - workflow is known and fixed
-  - LLM only needed for specific decision points
-  - cost/latency are primary concerns
-```
-
-The mistake to avoid: defaulting users to DeepAgent because it's "more powerful."
-Most use cases are simple ReAct or even classical workflow territory.
-DeepAgent should be a deliberate choice, not a default.
-
----
-
-## 10. Open Implementation Questions
-
-- Measure cost difference: same task on ReAct vs ReAct+todos vs DeepAgent
-- What is the failure rate of pure ReAct on tasks >10 steps in production?
-- Can the dedicated todo-update node be triggered by tool result classification
-  (FULL REPLAN / PARTIAL ADJUST / NO ACTION from the LOD pattern)?
-- How does subagent delegation interact with hierarchical goal stacks?
-- Should the platform expose Static-DRA as a third archetype for research tasks?
-- Empirical comparison: production reliability of DeepAgent vs ReAct+structured-todos
 
 ---
 
 ## References
 
-- LangChain Deep Agents Middleware docs: https://docs.langchain.com/oss/python/deepagents/middleware
+- LangChain Deep Agents Middleware: https://docs.langchain.com/oss/python/deepagents/middleware
 - DeepAgent paper (Xiaohongshu, WWW 2026): https://arxiv.org/pdf/2510.21618
-- Static-DRA (hierarchical tree static research agent): https://arxiv.org/pdf/2512.03887
-- Deep Research Agents systematic review: https://arxiv.org/pdf/2506.18096
+- Static-DRA: https://arxiv.org/pdf/2512.03887
+- Deep Research Agents review: https://arxiv.org/pdf/2506.18096
 - Dynamic Planning vs Static Workflows: https://tao-hpu.medium.com/dynamic-planning-vs-static-workflows-what-truly-defines-an-ai-agent-b13ca5a2d110
 - Plan-then-Execute Resilient Agents: https://arxiv.org/pdf/2509.08646
-- LLM Dynamic Planner (neurosymbolic): https://arxiv.org/pdf/2308.06391
 
----
-
-Related: [DeepAgent_LOD.md](./DeepAgent_LOD.md) — Level of Detail architecture for reducing reasoning cost in DeepAgent systems.
+Related: [DeepAgent_LOD.md](./DeepAgent_LOD.md)
