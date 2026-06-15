@@ -286,8 +286,10 @@ PeFT/Lora/QLora could be used in:
 3. [LangGraph. Patterns. Examples](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph)  
     a. [React. Using LangGraph. In Progress](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT-Lab2-LangGraph)  
     b. [React. Simple LangGraph Prototype](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/LangGraph_Prototype)  
-    c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)  
-4. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
+    c. [ReACT. Pre-coded loop + LLM to calculate the total weight of dogs](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/LangGraph/Examples/ReACT/ReACT_Lesson_1)
+    d. [DeepAgent. LOD Level of Detail](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_DeepAgent/DeepAgent_LOD.md)
+    e. [DeepAgent vs ReAct](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/LangGraph/LangGraph_DeepAgent/DeepAgent_vs_ReAct.md)   
+5. [LangGraph Advanced Topics](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/LangGraph_Advanced.md)  
     a. State Management - Persistent conversation state  (Persistent state)  
     b. State Management - In-Context and State Memory. What to place, where to place, and why  
     c. Graph Architecture - Nodes and edges for complex workflows. Complex graph patterns (subgraphs, parallel branches)  
