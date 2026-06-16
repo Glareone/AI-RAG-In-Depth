@@ -3,6 +3,8 @@
 > How to connect Claude Desktop to GitHub via MCP using Docker and a Personal Access Token.
 > Enables Claude to read/write repos, create/update files, and commit directly from conversation.
 
+<img width="1250" height="44" alt="image" src="https://github.com/user-attachments/assets/4f9cf1f3-741c-45a9-a4a5-bcec4bb9ad3d" />
+
 ---
 
 ## 1. Prerequisites
