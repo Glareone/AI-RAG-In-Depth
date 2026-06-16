@@ -122,3 +122,90 @@ write operations:
   create issues and pull requests
   add comments to issues and PRs
 ```
+
+---
+
+## 7. Known Limitations
+
+### Payload size limit (~6-8KB per write)
+The Docker stdio transport has a size limit per write operation.
+Large files (>6-8KB content) cause the request to hang and time out
+silently — no error message, just a 4-minute wait then failure.
+
+**Workaround:** split large files into sequential chunk commits.
+Each commit replaces the full file, so pass the full accumulated content
+on each write (not just the new section). Read the SHA after each commit
+and use it for the next write.
+
+Reads are unaffected — large files read without issue.
+
+### Branch must exist
+Verify the default branch name before writing (`main` vs `master`).
+Claude cannot create a branch implicitly on a write.
+
+### No PR required
+Claude commits directly to the target branch without a PR.
+Intentional for note-publishing workflows.
+Ask explicitly if you want PR-based workflow instead.
+
+---
+
+## 8. Typical Workflow — Publishing Notes to GitHub
+
+```
+1. Write and refine notes in Obsidian (via Obsidian MCP)
+
+2. When ready to publish:
+   "push [note name] to github.com/youruser/yourrepo,
+    path: folder/filename.md, commit directly to main"
+
+3. Claude reads from Obsidian → writes to GitHub in one conversation turn
+
+4. For notes >6KB: Claude splits into sequential commits automatically
+   (pass full file content each time, not just the new section)
+```
+
+Both MCPs (Obsidian + GitHub) can be active simultaneously.
+Claude reads from one and writes to the other in the same turn.
+
+---
+
+## 9. Claude Code CLI (Alternative)
+
+For Claude Code CLI, no Docker needed — use the remote HTTP endpoint:
+
+```bash
+claude mcp add-json github '{"type":"http","url":"https://api.githubcopilot.com/mcp","headers":{"Authorization":"Bearer YOUR_PAT_HERE"}}'
+```
+
+Verify registration:
+
+```bash
+claude mcp list
+```
+
+Both Claude Desktop (Docker) and Claude Code CLI (remote HTTP) can use
+the same PAT — no separate token needed.
+
+---
+
+## 10. PAT Renewal
+
+PATs expire. When the token expires:
+
+1. Go to `https://github.com/settings/tokens`
+2. Regenerate the token
+3. Update `GITHUB_PERSONAL_ACCESS_TOKEN` in `claude_desktop_config.json`
+4. Restart Claude Desktop
+
+Set a calendar reminder before expiry to avoid interruption.
+
+---
+
+## 11. Official Reference
+
+Installation guide (GitHub official):
+`https://github.com/github/github-mcp-server/blob/main/docs/installation-guides/install-claude.md`
+
+> Note: the npm package `@modelcontextprotocol/server-github` is **deprecated as of April 2025**.
+> Use the Docker image `ghcr.io/github/github-mcp-server` instead.
