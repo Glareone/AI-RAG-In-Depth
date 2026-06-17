@@ -112,18 +112,6 @@ flowchart LR
 
 ---
 
-## Appendices
+## Related
 
-| Appendix | Page | Content |
-|---|---|---|
-| **A** — Security Mapping Matrix | p.39 | Cross-reference: ASI ↔ OWASP LLM Top 10 ↔ Agentic Threats T-codes ↔ AIVSS scoring |
-| **B** — CycloneDX and AIBOM | p.41 | How this complements SBOM/AIBOM (component inventory vs. behavioral risk) |
-| **C** — Non-Human Identities Mapping | p.42 | ASI ↔ OWASP NHI Top 10 (2025) for teams using identity-centric frameworks |
-| **D** — Exploits & Incidents Tracker | p.44 | Real-world incidents (Feb–Oct 2025): EchoLeak, Replit DB deletion, malicious MCP packages, Cursor RCEs |
-| **E** — Abbreviations | p.50 | Glossary: A2A, MCP, RAG, SBOM, NHI, PEP/PDP, etc. |
-
----
-
-## Why This Matters for Agent Platform Work
-
-Several entries map directly onto architectural decisions discussed elsewhere in this repo — particularly **ASI01 (Goal Hijack)**, **ASI02 (Tool Misuse)**, and **ASI08 (Cascading Failures)**, which are exactly the failure modes that goal-stack discipline, commitment thresholds, and scoped tool permissions (see [`LangGraph/LangGraph_DeepAgent`](../LangGraph/LangGraph_DeepAgent)) are designed to prevent.
+- [LangGraph/LangGraph_DeepAgent](../LangGraph/LangGraph_DeepAgent) — goal-stack discipline, commitment thresholds, and LOD architecture that mitigate ASI01 (Goal Hijack), ASI02 (Tool Misuse), and ASI08 (Cascading Failures)
