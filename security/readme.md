@@ -10,16 +10,18 @@ Licensed under **Creative Commons CC BY-SA 4.0**. Source: [genai.owasp.org](http
 
 ## What This Document Is
 
-A risk taxonomy specifically for autonomous AI agents — systems that plan, decide, and act across multiple steps and tools, often on behalf of users. Unlike the original OWASP Top 10 for LLM Applications (which covers single-response model risks), this document addresses risks that emerge from **autonomy, delegation, and multi-step execution**.
-
-Each of the 10 entries follows the same structure: Description → Common Examples of the Vulnerability → Example Attack Scenarios → Prevention and Mitigation Guidelines → References.
+- **Focus:** security risks specific to autonomous AI agents (not traditional LLMs)
+- **Scope:** agents that plan, decide, and act across multiple steps, tools, and systems on behalf of users
+- **Difference from OWASP LLM Top 10:** LLM Top 10 covers single-response model risks; this covers risks from autonomy, delegation, and multi-step execution
+- **Format:** each of the 10 entries follows: Description → Common Examples → Attack Scenarios → Mitigations → References
+- **Key concept introduced:** **Least-Agency** — only grant agents the minimum autonomy required for the task
 
 ---
 
 ## Table of Contents — Summarized
 
 **Letter from The Agentic Top 10 Leaders** (p.6)
-Introduction from the project leads explaining the document's purpose: a concise, actionable companion to OWASP's deeper Agentic AI Threats and Mitigations guide. Introduces the concept of **Least-Agency** — avoid giving agents more autonomy than the task requires.
+Introduction from the project leads explaining the document's purpose: a concise, actionable companion to OWASP's deeper Agentic AI Threats and Mitigations guide.
 
 **Agentic Top 10 At A Glance** (p.8)
 Visual diagram mapping all 10 risks onto the agentic system lifecycle: inputs (prompts, APIs, external agents) → integration/processing (policy, memory, tool use) → outputs (tools, APIs, external agents).
