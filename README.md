@@ -372,6 +372,11 @@ PeFT/Lora/QLora could be used in:
     d. [Performance and Trade-offs](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Q&A_Quick_References.md#qa-quick-references)    
 2. Examples  
     a. [TenSeal, Concrete-ML, Microsoft Seal](https://github.com/Glareone/AI-LLM-RAG-best-practices/blob/main/advanced-topics/Homomorphic/Homomorphic_Examples.md)  
+
+### 13. OWASP 10 AI Agent Threats 2026
+1. [Intro](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/security/readme.md)
+2. [OWASP 10 PDF](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/security/OWASP-Top-10-for-Agentic-Applications-2026-12.6-1.pdf)
+
 ---
 
 ### AI System monitoring, evaluation and tracking. LangWatch vs LangFuse vs Phoenix vs AI Foundry
