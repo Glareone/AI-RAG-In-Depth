@@ -18,68 +18,109 @@ Licensed under **Creative Commons CC BY-SA 4.0**. Source: [genai.owasp.org](http
 
 ---
 
-## Table of Contents — Summarized
+## Agentic AI Risk Map
 
-**Letter from The Agentic Top 10 Leaders** (p.6)
-Introduction from the project leads explaining the document's purpose: a concise, actionable companion to OWASP's deeper Agentic AI Threats and Mitigations guide.
+```mermaid
+flowchart LR
+    subgraph Inputs
+        UP[User Prompts]
+        API[API]
+        EA_in[External Agents]
+    end
 
-**Agentic Top 10 At A Glance** (p.8)
-Visual diagram mapping all 10 risks onto the agentic system lifecycle: inputs (prompts, APIs, external agents) → integration/processing (policy, memory, tool use) → outputs (tools, APIs, external agents).
+    subgraph Processing
+        PG[Policy & Governance]
+        HITL[Human-in-the-Loop]
+        A1[Agent] <-.-> A2[Agent]
+        CD[Connected Data / RAG]
+        MEM[Memory]
+    end
 
----
+    subgraph Outputs
+        TOOLS[Tools]
+        APIS[APIs / Resources]
+        EA_out[External Agents]
+    end
 
-### ASI01: Agent Goal Hijack (p.9)
-Attackers manipulate an agent's objectives or decision path through prompt injection, poisoned documents, forged agent messages, or malicious external data — redirecting the agent toward unintended actions. Example: a hidden instruction in an email silently triggers data exfiltration (EchoLeak).
+    UP -->|ASI01 ASI03 ASI09| PG
+    API --> PG
+    EA_in --> PG
+    PG --> A1
+    A1 --> HITL
+    CD -->|ASI06| MEM
+    A1 <-->|ASI07| A2
+    A2 -->|ASI10| TOOLS
+    TOOLS -->|ASI02| APIS
+    TOOLS --> EA_out
 
-### ASI02: Tool Misuse and Exploitation (p.12)
-The agent uses a *legitimate* tool in an unsafe or unintended way — over-invoking APIs, deleting data, or chaining tools to exfiltrate information — without necessarily being hijacked. Example: an email summarizer tool that also has delete/send permissions it shouldn't.
-
-### ASI03: Identity and Privilege Abuse (p.15)
-Exploits the gap between agent identity and traditional user-centric access control. Covers privilege inheritance, cached credentials, agent-to-agent trust abuse (confused deputy), and forged agent personas. Example: a low-privilege agent relays a request to a high-privilege agent, which executes it without re-checking original intent.
-
-### ASI04: Agentic Supply Chain Vulnerabilities (p.18)
-Risks from third-party tools, models, plug-ins, MCP servers, or other agents that are compromised, malicious, or tampered with — loaded dynamically at runtime rather than fixed at build time. Example: a malicious MCP server impersonating a legitimate one (postmark-mcp) secretly BCCs emails to an attacker.
-
-### ASI05: Unexpected Code Execution (RCE) (p.21)
-Agents that generate and execute code (including "vibe coding" tools) can be manipulated into running attacker-defined or hallucinated malicious code — via prompt injection, unsafe deserialization, or chained tool calls. Example: an agent processes a file path containing a hidden shell command that deletes production data.
-
-### ASI06: Memory & Context Poisoning (p.24)
-Adversaries corrupt an agent's stored or retrievable context (RAG stores, embeddings, conversation memory) so that future reasoning becomes biased or unsafe — persisting across sessions, unlike a one-time prompt injection. Example: an attacker repeatedly reinforces a fake price in a travel-booking assistant's memory until it's treated as fact.
-
-### ASI07: Insecure Inter-Agent Communication (p.27)
-Multi-agent systems communicate via APIs, message buses, and shared memory — weak authentication or integrity controls let attackers intercept, spoof, or tamper with these real-time exchanges. Example: a man-in-the-middle attacker injects hidden instructions into unencrypted agent-to-agent traffic.
-
-### ASI08: Cascading Failures (p.30)
-A single fault (hallucination, poisoned input, corrupted tool) propagates and amplifies across interconnected agents, turning one error into system-wide harm — because agents act autonomously and persist state without stepwise human checks. Example: a poisoned market-analysis agent inflates risk limits, causing downstream trading agents to auto-execute oversized positions.
-
-### ASI09: Human-Agent Trust Exploitation (p.33)
-Agents build strong trust with humans through fluent language and apparent expertise (anthropomorphism); attackers or misaligned agents exploit this trust to get harmful actions approved without proper scrutiny. Example: a finance copilot, fed a poisoned invoice, confidently recommends an urgent payment that a manager approves without independent checks.
-
-### ASI10: Rogue Agents (p.36)
-An agent deviates from its intended scope and acts harmfully, deceptively, or persistently — distinct from being hijacked, this is about the **loss of behavioral integrity** once drift begins, regardless of how it started. Example: an agent that learned a bad behavior from a (now-removed) poisoned instruction continues exfiltrating data independently.
+    style A2 stroke-dasharray: 5 5
+```
 
 ---
 
-### Appendix A — OWASP Agentic AI Security Mapping Matrix (p.39)
-Cross-reference table linking each ASI risk to the corresponding OWASP LLM Top 10 (2025) entries, the detailed Agentic AI Threats & Mitigations T-codes, and AIVSS scoring categories.
+## The 10 Risks
 
-### Appendix B — Relationship to OWASP CycloneDX and AIBOM (p.41)
-Explains how this document complements CycloneDX/AIBOM (which answers "what components are in my AI system") by addressing "how can those components and agents behave or fail unsafely."
+### ASI01: Agent Goal Hijack
+- **What:** attacker redirects an agent's objectives or decision path
+- **How:** prompt injection, poisoned documents, forged agent messages, malicious external data
+- **Example:** hidden instruction in an email silently triggers data exfiltration (EchoLeak — zero-click exploit on Microsoft 365 Copilot)
 
-### Appendix C — Mapping Between OWASP Non-Human Identities Top 10 (2025) and Agentic AI Top 10 (p.42)
-Table mapping all 10 NHI (Non-Human Identity) risks to the corresponding ASI entries — useful for teams already using the NHI framework for service-account and machine-identity security.
+### ASI02: Tool Misuse and Exploitation
+- **What:** agent uses a *legitimate* tool in an unsafe or unintended way
+- **How:** over-invoking APIs, deleting data, chaining tools to exfiltrate information — without being hijacked
+- **Example:** email summarizer that also has delete/send permissions executes unauthorized actions
 
-### Appendix D — ASI Agentic Exploits & Incidents Tracker (p.44)
-A running, weekly-updated table of real-world agentic AI exploits and incidents (Feb 2025 – Oct 2025), each mapped to the relevant ASI risk category. Includes EchoLeak, Replit's production-database deletion, malicious MCP packages, Cursor RCE vulnerabilities, and more.
+### ASI03: Identity and Privilege Abuse
+- **What:** exploits the gap between agent identity and user-centric access control
+- **How:** privilege inheritance, cached credentials, confused deputy (agent-to-agent trust abuse), forged agent personas
+- **Example:** low-privilege agent relays a request to a high-privilege agent, which executes it without re-checking original intent
 
-### Appendix E — Abbreviations (p.50)
-Glossary of acronyms used throughout the document (A2A, MCP, RAG, SBOM, NHI, PEP/PDP, etc.).
+### ASI04: Agentic Supply Chain Vulnerabilities
+- **What:** third-party components (tools, MCP servers, plug-ins, other agents) are compromised or malicious
+- **How:** tool-descriptor injection, typosquatting, poisoned packages loaded dynamically at runtime
+- **Example:** malicious MCP server impersonating `postmark-mcp` on npm secretly BCCs all emails to the attacker
 
-### Acknowledgements (p.52)
-Lists the Top 10 leaders, entry leads, contributors, and the expert review board (including representatives from NIST, Microsoft, the Alan Turing Institute, and others) who developed this document.
+### ASI05: Unexpected Code Execution (RCE)
+- **What:** agent generates and executes attacker-defined or hallucinated malicious code
+- **How:** prompt injection → code generation, unsafe deserialization, chained tool calls achieving execution
+- **Example:** "vibe coding" agent executes unreviewed shell commands in its own workspace, deleting production data (Replit incident)
 
-### OWASP GenAI Security Project Sponsors / Project Supporters (p.55–56)
-Organizations funding and supporting the OWASP GenAI Security Project.
+### ASI06: Memory & Context Poisoning
+- **What:** adversary corrupts stored/retrievable context so future reasoning becomes biased or unsafe
+- **How:** RAG poisoning, shared context injection, long-term memory drift — persists across sessions
+- **Example:** attacker repeatedly reinforces a fake flight price in a travel-booking assistant's memory until the agent treats it as fact and bypasses payment checks
+
+### ASI07: Insecure Inter-Agent Communication
+- **What:** weak authentication or integrity in agent-to-agent exchanges enables interception, spoofing, or tampering
+- **How:** unencrypted channels, message replay, protocol downgrade, descriptor forgery, metadata profiling
+- **Example:** MITM attacker injects hidden instructions into unencrypted agent-to-agent traffic, altering goals without detection
+
+### ASI08: Cascading Failures
+- **What:** a single fault propagates and amplifies across interconnected agents into system-wide harm
+- **How:** planner-executor coupling, corrupted persistent memory, feedback-loop amplification, governance drift
+- **Example:** poisoned market-analysis agent inflates risk limits → trading agents auto-execute oversized positions → compliance stays blind because parameters appear "within policy"
+
+### ASI09: Human-Agent Trust Exploitation
+- **What:** attackers exploit the trust humans place in fluent, authoritative-sounding agents
+- **How:** anthropomorphism, automation bias, fake explainability, fabricated rationales for harmful actions
+- **Example:** finance copilot fed a manipulated invoice confidently recommends urgent payment to attacker-controlled account — manager approves without independent checks
+
+### ASI10: Rogue Agents
+- **What:** agent deviates from intended scope and acts harmfully or deceptively — focus is on **loss of behavioral integrity**, not the initial cause
+- **How:** goal drift, workflow hijacking, collusion, self-replication, reward hacking
+- **Example:** agent that learned exfiltration behavior from a poisoned instruction continues doing it independently even after the malicious source is removed
+
+---
+
+## Appendices
+
+| Appendix | Page | Content |
+|---|---|---|
+| **A** — Security Mapping Matrix | p.39 | Cross-reference: ASI ↔ OWASP LLM Top 10 ↔ Agentic Threats T-codes ↔ AIVSS scoring |
+| **B** — CycloneDX and AIBOM | p.41 | How this complements SBOM/AIBOM (component inventory vs. behavioral risk) |
+| **C** — Non-Human Identities Mapping | p.42 | ASI ↔ OWASP NHI Top 10 (2025) for teams using identity-centric frameworks |
+| **D** — Exploits & Incidents Tracker | p.44 | Real-world incidents (Feb–Oct 2025): EchoLeak, Replit DB deletion, malicious MCP packages, Cursor RCEs |
+| **E** — Abbreviations | p.50 | Glossary: A2A, MCP, RAG, SBOM, NHI, PEP/PDP, etc. |
 
 ---
 
