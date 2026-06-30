@@ -129,6 +129,7 @@ Theoretical Part
 17. [AI Search and Custom Skill using Azure Function](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/AI%20Search%20and%20Custom%20Skills)
 18. Document Intelligence, Best Practices (In progress)
 19. [MCP Server example using FastMCP](https://github.com/Glareone/AI-LLM-RAG-best-practices/tree/main/MCPServers/FastMCP-Example)
+20. [MCP Server — Claude Desktop to GitHub via Docker. Setup guide with PAT, config, and known limitations](https://github.com/Glareone/AI-RAG-In-Depth/blob/main/MCPServers/Claude-to-git.md)
 
 ---
 ## Advanced Topics. Theory and Practice.
@@ -403,5 +404,3 @@ PeFT/Lora/QLora could be used in:
 ### RAG. Cheatsheet for .Net
 ---
 ![image](https://github.com/Glareone/OpenAI-and-ChatGPT-meet-.Net/assets/4239376/2b8ca392-dc0e-4ebc-9f85-5bcbb8bf27bb)
-
-
