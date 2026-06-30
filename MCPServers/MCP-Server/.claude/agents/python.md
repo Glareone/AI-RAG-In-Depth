@@ -42,6 +42,28 @@ ADRs live in `adr/` at project root. Naming: `YYMMDD-short-kebab-topic.md`. Full
 2. Read files you will change and 1-2 neighbours to get the context.
 3. Check the Changelog.md and Claude.md files to get hints what's already done and why
 4. Before hand-back run `uv run ruff format .`, `uv run ruff check .`, `uv run mypy src/ tests/`, `uv run pytest` from the **service root** folder src/;
-5. Change Changelog.md sections to declare what's implemented, what's released
+5. Update `CHANGELOG.md` `[Unreleased]` section — declare what changed. Do NOT promote to a versioned release header unless explicitly asked.
 
 ## Output contract on hand-back
+
+Report: file changed, tests added/updated; which tools now working on MCP; confirm the rules file loaded
+
+## Escalation
+
+- touches another stack or project - stop, ask for confirmation;
+- requires `.env` or `pyproject.toml` dependency or Dockerfile or security or configuration changes - confirm with human first and check `CLAUDE.md` standing rules.
+- `uv.lock` if requires regeneration - flag and asks for confirmation, otherwise it requires a separate PR.
+
+## Quick project callout
+
+**`_meta` passthrough — #1 footgun.** Always propagate the incoming `_meta` field to the tool response. Dropping it silently breaks HITL: client never receives the elicitation/approval payload. Verify round-trip in every new tool.
+
+**OTel — `tool.outcome` is banned.** Use `Status(StatusCode.OK/ERROR)` as the canonical signal. `tool.outcome` leaks literal `"ok"` into Phoenix's output column. Also truncate `output.value` for unbounded responses — keeps Phoenix export sizes sane.
+
+**Tools stay thin.** No business logic in `tools/`. Validate input, call `services/`, return typed output. All real work lives in `services/`.
+
+**No module-level globals.** Config, tracer, HTTP clients — all in `app_context.py` via FastAPI lifespan. Inject via `Depends`. A module-level singleton silently bypasses lifespan teardown and breaks test isolation.
+
+**Package name is `mcp_server` (underscore).** On-disk dir is currently `mcp-server` (hyphen) — not importable. Rename before writing any import. Do not create `mcp-server/__init__.py`; it won't work.
+
+**Test conventions.** File pattern: `*_test.py` (not `test_*.py`). `conftest.py` must set `OTEL_TELEMETRY_ENABLED=false` and all other required secrets. Shared fixtures only in `tests/helpers.py`.
