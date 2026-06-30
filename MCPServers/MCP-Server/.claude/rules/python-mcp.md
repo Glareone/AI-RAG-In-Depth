@@ -5,7 +5,7 @@ paths:
 
 # Agent MCP Server - Python and MCP conventions
 
-Applied to `src/src/mcp_server` only. For LangGraph, Langchain, and other aspects, see `python-langchain.md`.
+Applied to `src/src/mcp_server` only. For LangGraph, Langchain, and other aspects, see `python-langchain.md` (planned — not yet created).
 
 # Purpose
 
