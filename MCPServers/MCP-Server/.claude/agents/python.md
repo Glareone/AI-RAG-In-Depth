@@ -44,9 +44,13 @@ ADRs live in `adr/` at project root. Naming: `YYMMDD-short-kebab-topic.md`. Full
 4. Before hand-back run `uv run ruff format .`, `uv run ruff check .`, `uv run mypy src/ tests/`, `uv run pytest` from the **service root** folder src/;
 5. Update `CHANGELOG.md` `[Unreleased]` section — declare what changed. Do NOT promote to a versioned release header unless explicitly asked.
 
+## Foundation state
+
+Structure is in place — do not re-scaffold. All subpackages (`config/`, `routers/`, `schemas/`, `services/`, `telemetry/`, `tools/`) exist. `main.py`, `mcp_app.py`, `app_context.py` are live. Foundation verified in Docker. See `CLAUDE.md` and `CHANGELOG.md` for current state.
+
 ## Output contract on hand-back
 
-Report: file changed, tests added/updated; which tools now working on MCP; confirm the rules file loaded
+Report: files changed, tests added/updated, MCP tools now registered (list them), confirm rules file loaded.
 
 ## Escalation
 
@@ -64,6 +68,6 @@ Report: file changed, tests added/updated; which tools now working on MCP; confi
 
 **No module-level globals.** Config, tracer, HTTP clients — all in `app_context.py` via FastAPI lifespan. Inject via `Depends`. A module-level singleton silently bypasses lifespan teardown and breaks test isolation.
 
-**Package name is `mcp_server` (underscore).** On-disk dir is currently `mcp-server` (hyphen) — not importable. Rename before writing any import. Do not create `mcp-server/__init__.py`; it won't work.
+**Package name is `mcp_server` (underscore).** Import as `mcp_server`. The hyphen dir has been removed — `src/src/mcp_server/` is the live package.
 
 **Test conventions.** File pattern: `*_test.py` (not `test_*.py`). `conftest.py` must set `OTEL_TELEMETRY_ENABLED=false` and all other required secrets. Shared fixtures only in `tests/helpers.py`.
